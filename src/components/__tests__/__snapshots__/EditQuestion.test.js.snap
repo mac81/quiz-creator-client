@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <input
+    defaultValue="Test"
+  />
+  <table>
+    <thead>
+      <tr>
+        <th />
+        <th />
+        <th>
+          Answer
+        </th>
+        <th>
+          Correct answer
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <button>
+            Delete
+          </button>
+        </td>
+        <td>
+          <button>
+            Move
+          </button>
+        </td>
+        <td>
+          <input
+            defaultValue="Answer 1"
+          />
+        </td>
+        <td>
+          <input
+            checked={undefined}
+            name="correctAnswer"
+            type="radio"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
