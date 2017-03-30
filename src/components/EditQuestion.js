@@ -1,7 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as QuestionActions from '../actions/questions';
 
 export class EditQuestion extends React.Component {
+
+    onClick = (answerId) => {
+        this.props.actions.updateQuestion(this.props.item._id, 'correctAnswerId', answerId)
+    }
+
     render() {
         const { item } = this.props;
 
@@ -26,7 +33,7 @@ export class EditQuestion extends React.Component {
                             <td><button>Delete</button></td>
                             <td><button>Move</button></td>
                             <td><input defaultValue={item.answer}/></td>
-                            <td><input type="radio" name="correctAnswer" checked={item.correctAnswer}/></td>
+                            <td><input type="radio" onClick={() => this.onClick(item._id)} name="correctAnswer" checked={item.correctAnswer}/></td>
                         </tr>
                     ))}
                     </tbody>
@@ -42,4 +49,8 @@ const mapStateToProps = (state, props) => {
     }
 };
 
-export default connect(mapStateToProps)(EditQuestion);
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(QuestionActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditQuestion);

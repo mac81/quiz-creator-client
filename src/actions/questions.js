@@ -47,6 +47,26 @@ export const deleteQuestion = (question_id) => {
     }
 };
 
+export const updateQuestion = (question_id, key, value) => {
+    return (dispatch, getState) => {
+        fetch(`/api/questions/${question_id}`, {
+            method: 'put',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                [key]: value
+            })
+        }).then(function(response) {
+            return response.json();
+        }).then(function(response) {
+            dispatch(questionUpdated(response.payload));
+        }).catch(function(err) {
+            console.log(err);
+        });
+    }
+};
+
 function setQuestions(questions) {
     return {
         type: 'SET_QUESTIONS',
@@ -65,5 +85,12 @@ function questionDeleted(question_id) {
     return {
         type: 'QUESTION_DELETED',
         question_id
+    }
+}
+
+function questionUpdated(payload) {
+    return {
+        type: 'QUESTION_UPDATED',
+        payload
     }
 }

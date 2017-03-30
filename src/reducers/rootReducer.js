@@ -24,6 +24,15 @@ function app(state = initialState, action) {
                 ]
             };
 
+        case 'QUESTION_UPDATED':
+            return {
+                ...state,
+                questions: state.questions.map(question => question._id === action.payload._id ?
+                    Object.assign({}, question, action.payload) :
+                    question
+                )
+            };
+
         default:
             return state
     }
