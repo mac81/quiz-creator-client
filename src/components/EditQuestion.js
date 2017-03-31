@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import * as QuestionActions from '../actions/questions';
+import * as QuestionActions from 'actions/questions';
 
 export class EditQuestion extends React.Component {
 

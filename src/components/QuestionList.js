@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom';
-import * as QuestionActions from '../actions/questions';
+import * as QuestionActions from 'actions/questions';
 
 export class QuestionList extends React.Component {
 

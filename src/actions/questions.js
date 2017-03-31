@@ -1,6 +1,8 @@
+import actionTypes from 'actions//actionTypes';
+
 export const loadQuestions = () => {
     return (dispatch, getState) => {
-        console.log(getState());
+        dispatch(fetchQuestions());
         fetch('/api/questions', {
             method: 'get'
         }).then(function(response) {
@@ -67,30 +69,36 @@ export const updateQuestion = (question_id, key, value) => {
     }
 };
 
+function fetchQuestions() {
+  return {
+    type: actionTypes.fetchQuestions
+  }
+}
+
 function setQuestions(questions) {
     return {
-        type: 'SET_QUESTIONS',
+        type: actionTypes.setQuestions,
         questions
     }
 }
 
 function questionCreated(payload) {
     return {
-        type: 'QUESTION_CREATED',
+        type: actionTypes.questionCreated,
         payload
     }
 }
 
 function questionDeleted(question_id) {
     return {
-        type: 'QUESTION_DELETED',
+        type: actionTypes.questionDeleted,
         question_id
     }
 }
 
 function questionUpdated(payload) {
     return {
-        type: 'QUESTION_UPDATED',
+        type: actionTypes.questionUpdated,
         payload
     }
 }

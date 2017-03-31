@@ -1,42 +1,53 @@
+import actionTypes from 'actions/actionTypes';
+
 const initialState = {
-    questions: []
+  isLoading: false,
+  questions: []
 };
 
 function app(state = initialState, action) {
-    switch (action.type) {
-        case 'SET_QUESTIONS':
-            return Object.assign({}, state, {
-                questions: action.questions
-            });
+  switch (action.type) {
 
-        case 'QUESTION_DELETED':
-            return {
-                ...state,
-                questions: state.questions.filter(question => question._id !== action.question_id)
-            };
+  case actionTypes.fetchQuestions:
+    return Object.assign({}, state, {
+      isLoading: true
+    });
 
-        case 'QUESTION_CREATED':
-            return {
-                ...state,
-                questions: [
-                    ...state.questions,
-                    action.payload
-                ]
-            };
+  case actionTypes.setQuestions:
+    return Object.assign({}, state, {
+      questions: action.questions,
+      isLoading: false
+    });
 
-        case 'QUESTION_UPDATED':
-            return {
-                ...state,
-                questions: state.questions.map(question => question._id === action.payload._id ?
-                    Object.assign({}, question, action.payload) :
-                    question
-                )
-            };
+  case actionTypes.questionCreated:
+    return {
+      ...state,
+      questions: [
+        ...state.questions,
+        action.payload
+      ]
+    };
 
-        default:
-            return state
-    }
+  case actionTypes.questionDeleted:
+    return {
+      ...state,
+      questions: state.questions.filter(question => question._id !== action.question_id)
+    };
+
+
+
+  case actionTypes.questionUpdated:
+    return {
+      ...state,
+      questions: state.questions.map(question => question._id === action.payload._id ?
+        Object.assign({}, question, action.payload) :
+        question
+      )
+    };
+
+  default:
+    return state
+  }
 }
-
 
 export default app;
