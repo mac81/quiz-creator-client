@@ -2,7 +2,9 @@ import actionTypes from 'actions/actionTypes';
 
 const initialState = {
   isLoading: false,
-  questions: []
+  data: {
+    entities: {}
+  }
 };
 
 function app(state = initialState, action) {
@@ -15,7 +17,7 @@ function app(state = initialState, action) {
 
   case actionTypes.setQuestions:
     return Object.assign({}, state, {
-      questions: action.questions,
+      data: action.questions,
       isLoading: false
     });
 
@@ -51,3 +53,7 @@ function app(state = initialState, action) {
 }
 
 export default app;
+
+export const SELECTORS = {
+  getQuestions: (state) => state.data.entities.questions
+};

@@ -10,11 +10,11 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { loadQuestions } from './actions/questions';
 
-import QuestionList from './components/QuestionList';
-import CreateQuestion from './components/CreateQuestion';
-import EditQuestion from './components/EditQuestion';
+import QuestionList from './containers/QuestionList';
+import CreateQuestion from './containers/CreateQuestion';
+import EditQuestion from './containers/EditQuestion';
 
-store.dispatch(loadQuestions());
+//store.dispatch(loadQuestions());
 
 const root = document.getElementById('app');
 
