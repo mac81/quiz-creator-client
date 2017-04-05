@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom';
 import * as QuestionActions from 'actions/questions';
-import { SELECTORS } from 'reducers/rootReducer'
-import { values } from 'lodash';
+import { SELECTORS } from 'reducers/questions'
 
 export class QuestionList extends React.Component {
 
@@ -24,10 +23,10 @@ export class QuestionList extends React.Component {
         return (
             <div>
                 <ul>
-                    {questions && values(questions).map(item => (
+                    {questions && questions.map(item => (
                         <li key={item._id}>
                             <button id={item._id} onClick={this.onDelete}>Delete</button>
-                            <Link to={`questions/${item._id}`}>{item.question}</Link>
+                            <Link to={`questions/${item._id}`}>{item.questionText}</Link>
                         </li>
                     ))}
                 </ul>
@@ -39,7 +38,7 @@ export class QuestionList extends React.Component {
 
 const mapStateToProps = (state, props) => {
     return {
-        questions: state.data.entities.questions
+        questions: SELECTORS.getQuestions(state)
     }
 };
 

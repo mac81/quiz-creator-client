@@ -2,27 +2,34 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import * as QuestionActions from 'actions/questions';
+import { SELECTORS } from 'reducers/questions'
 
 export class EditQuestion extends React.Component {
 
-  onClick = (answerId) => {
-    this.props.actions.updateQuestion(this.props.item._id, 'correctAnswerId', answerId)
+  constructor(props) {
+    super(props);
+
+    this.props.actions.loadQuestion(props.match.params.id);
+  }
+
+  onChangeCorrectAnswer = (answerId) => {
+    this.props.actions.updateQuestion('correctAnswerId', answerId)
   }
 
   onChangeAnswer = (answerId) => {
-    this.props.actions.updateQuestion(this.props.item._id, 'answer', answerId)
+    this.props.actions.updateQuestion('answerText', 'Hello', answerId)
   }
 
   render() {
-    const {item} = this.props;
+    const {question, answers} = this.props;
 
-    if (!item) {
+    if (!question) {
       return null
     }
 
     return (
       <div>
-        <input defaultValue={item.question}/>
+        <input defaultValue={question.questionText}/>
 
         <table>
           <thead>
@@ -34,7 +41,7 @@ export class EditQuestion extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {item.answers.map((item, index) => (
+          {answers.map((answer, index) => (
             <tr key={index}>
               <td>
                 <button>Delete</button>
@@ -43,14 +50,15 @@ export class EditQuestion extends React.Component {
                 <button>Move</button>
               </td>
               <td>
-                <input defaultValue={item.answer} onChange={() => this.onChangeAnswer(item.id)}/>
+                <input defaultValue={answer.answerText} onChange={() => this.onChangeAnswer(answer._id)}/>
               </td>
               <td>
                 <input
                   type="radio"
-                  onClick={() => this.onClick(item._id)}
+                  onChange={() => this.onChangeCorrectAnswer(answer._id)}
                   name="correctAnswer"
-                  checked={item.correctAnswer}
+                  value={answer._id}
+                  checked={answer._id === question.correctAnswerId}
                 />
               </td>
             </tr>
@@ -64,7 +72,8 @@ export class EditQuestion extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    item: state.questions.find(question => question._id === props.match.params.id)
+    question: SELECTORS.getQuestion(state),
+    answers: SELECTORS.getAnswers(state)
   }
 };
 

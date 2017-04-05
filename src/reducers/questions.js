@@ -1,10 +1,7 @@
 import actionTypes from 'actions/actionTypes';
 
 const initialState = {
-  isLoading: false,
-  data: {
-    entities: {}
-  }
+  isLoading: false
 };
 
 function app(state = initialState, action) {
@@ -16,10 +13,18 @@ function app(state = initialState, action) {
     });
 
   case actionTypes.setQuestions:
-    return Object.assign({}, state, {
-      data: action.questions,
+    return {
+      ...state,
+      questions: action.payload,
       isLoading: false
-    });
+    };
+
+  case actionTypes.setQuestion:
+    return {
+      ...state,
+      question: action.payload,
+      isLoading: false
+    };
 
   case actionTypes.questionCreated:
     return {
@@ -37,14 +42,10 @@ function app(state = initialState, action) {
     };
 
 
-
   case actionTypes.questionUpdated:
     return {
       ...state,
-      questions: state.questions.map(question => question._id === action.payload._id ?
-        Object.assign({}, question, action.payload) :
-        question
-      )
+      question: action.payload
     };
 
   default:
@@ -55,5 +56,7 @@ function app(state = initialState, action) {
 export default app;
 
 export const SELECTORS = {
-  getQuestions: (state) => state.data.entities.questions
+  getQuestions: (state) => state.questions.questions,
+  getQuestion: (state) => state.questions.question && state.questions.question,
+  getAnswers: (state) => state.questions.question && state.questions.question.answers
 };

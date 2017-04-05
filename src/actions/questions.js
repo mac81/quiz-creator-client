@@ -1,13 +1,13 @@
 import actionTypes from 'actions//actionTypes';
-import {normalize, schema} from 'normalizr';
-
-const answer = new schema.Entity('answers', {}, {idAttribute: '_id'});
-
-const question = new schema.Entity('questions', {
-  answers: [answer]
-}, {idAttribute: '_id'});
-
-const responseSchema = [question];
+// import {normalize, schema} from 'normalizr';
+//
+// const answer = new schema.Entity('answers', {}, {idAttribute: '_id'});
+//
+// const question = new schema.Entity('questions', {
+//   answers: [answer]
+// }, {idAttribute: '_id'});
+//
+// const responseSchema = [question];
 
 export const loadQuestions = () => {
   return (dispatch, getState) => {
@@ -17,8 +17,23 @@ export const loadQuestions = () => {
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      const normalizedData = normalize(data, responseSchema);
-      dispatch(setQuestions(normalizedData));
+      //const normalizedData = normalize(data, responseSchema);
+      dispatch(setQuestions(data));
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+};
+
+export const loadQuestion = (questionId) => {
+  return (dispatch, getState) => {
+    dispatch(fetchQuestions());
+    fetch(`/api/questions/${questionId}`, {
+      method: 'get'
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      dispatch(setQuestion(data));
     }).catch(function (err) {
       console.log(err);
     });
@@ -59,15 +74,18 @@ export const deleteQuestion = (question_id) => {
   }
 };
 
-export const updateQuestion = (question_id, key, value) => {
+export const updateQuestion = (key, value, answerId) => {
   return (dispatch, getState) => {
-    fetch(`/api/questions/${question_id}`, {
+    const questionId = getState().questions.question._id;
+
+    fetch(`/api/questions/${questionId}`, {
       method: 'put',
       headers: new Headers({
         'Content-Type': 'application/json'
       }),
       body: JSON.stringify({
-        [key]: value
+        [key]: value,
+        answerId: answerId
       })
     }).then(function (response) {
       return response.json();
@@ -85,10 +103,23 @@ function fetchQuestions() {
   }
 }
 
-function setQuestions(questions) {
+function setQuestions(payload) {
   return {
     type: actionTypes.setQuestions,
-    questions
+    payload
+  }
+}
+
+function fetchQuestion() {
+  return {
+    type: actionTypes.fetchQuestion
+  }
+}
+
+function setQuestion(payload) {
+  return {
+    type: actionTypes.setQuestion,
+    payload
   }
 }
 
