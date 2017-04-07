@@ -1,44 +1,85 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux'
 import * as QuestionActions from 'actions/questions';
 
 export class CreateQuestion extends React.Component {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            questionName: ''
+    this.state = {
+      questionText: '',
+      answers: [
+        {
+          _id: 1,
+          answerText: ''
+        },
+        {
+          _id: 2,
+          answerText: ''
         }
+      ]
     }
+  }
 
-    onChange = (e) => {
-        this.setState({
-            questionName: e.target.value
-        })
-    }
+  onChangeQuestionText = (e) => {
+    this.setState({
+      questionText: e.target.value
+    })
+  }
 
-    addAnswer = () => {
-        this.props.actions.createQuestion(this.state.questionName)
-    }
+  onChangeAnswerText = (answerId) => {
+    this.setState({
+      answerText: e.target.value
+    })
+  }
 
-    createQuestion = () => {
-        this.props.actions.createQuestion(this.state.questionName)
-    }
+  createQuestion = () => {
+    this.props.actions.createQuestion(this.state.questionName)
+  }
 
-    render() {
-        return (
-            <div>
-                <input onChange={this.onChange}/>
-                <button onClick={this.createQuestion}>Create</button>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <input onChange={this.onChangeQuestionText}/>
+
+        <table>
+          <thead>
+          <tr>
+            <th>Answer</th>
+            <th>Correct answer</th>
+          </tr>
+          </thead>
+          <tbody>
+          {this.state.answers.map(answer, index) => (
+            <tr>
+              <td>
+                <input
+                  name="answerText"
+                  onChange={this.onUpdateAnswerText}
+                />
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  onChange={this.onUpdateCorrectAnswer}
+                  name="correctAnswerId"
+                />
+              </td>
+            </tr>
+           )}
+          </tbody>
+        </table>
+
+        <button onClick={this.createQuestion}>Create</button>
+      </div>
+    );
+  }
 }
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(QuestionActions, dispatch)
+  actions: bindActionCreators(QuestionActions, dispatch)
 });
 
 export default connect(undefined, mapDispatchToProps)(CreateQuestion);

@@ -60,6 +60,30 @@ export const createQuestion = (questionName) => {
   }
 };
 
+export const createAnswer = () => {
+  return (dispatch, getState) => {
+
+    const questionId = getState().questions.question._id;
+
+    fetch(`/api/questions/${questionId}/answers`, {
+      method: 'post',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({
+        answerText: 'Test'
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (response) {
+      console.log(response);
+      //dispatch(questionCreated(response.payload));
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+};
+
 export const deleteQuestion = (question_id) => {
   return (dispatch, getState) => {
     fetch(`/api/questions/${question_id}`, {
@@ -74,7 +98,7 @@ export const deleteQuestion = (question_id) => {
   }
 };
 
-export const updateQuestion = (key, value, answerId) => {
+export const updateQuestion = (key, value) => {
   return (dispatch, getState) => {
     const questionId = getState().questions.question._id;
 
@@ -84,13 +108,51 @@ export const updateQuestion = (key, value, answerId) => {
         'Content-Type': 'application/json'
       }),
       body: JSON.stringify({
-        [key]: value,
-        answerId: answerId
+        [key]: value
       })
     }).then(function (response) {
       return response.json();
     }).then(function (response) {
       dispatch(questionUpdated(response.payload));
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+};
+
+export const updateQuestionAnswer = (key, value, answerId) => {
+  return (dispatch, getState) => {
+    const questionId = getState().questions.question._id;
+
+    fetch(`/api/questions/${questionId}/answers/${answerId}`, {
+      method: 'put',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({
+        [key]: value
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (response) {
+      dispatch(questionUpdated(response.payload));
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+};
+
+export const deleteQuestionAnswer = (answerId) => {
+  return (dispatch, getState) => {
+
+    const questionId = getState().questions.question._id;
+
+    fetch(`/api/questions/${questionId}/answers/${answerId}`, {
+      method: 'delete'
+    }).then(function (response) {
+      return response.json();
+    }).then(function () {
+      dispatch(questionAnswerDeleted(answerId));
     }).catch(function (err) {
       console.log(err);
     });
@@ -141,5 +203,12 @@ function questionUpdated(payload) {
   return {
     type: actionTypes.questionUpdated,
     payload
+  }
+}
+
+function questionAnswerDeleted(answer_id) {
+  return {
+    type: actionTypes.questionAnswerDeleted,
+    answer_id
   }
 }

@@ -48,6 +48,17 @@ function app(state = initialState, action) {
       question: action.payload
     };
 
+  case actionTypes.questionAnswerDeleted:
+    console.log(state)
+    return {
+      ...state,
+      question: {
+        ...state.question,
+        answers: state.question.answers.filter(answer => 1 === 1)
+      }
+    }
+
+
   default:
     return state
   }

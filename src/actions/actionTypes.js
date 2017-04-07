@@ -5,7 +5,8 @@ const actionTypes = {
   setQuestion: 'SET_QUESTION',
   questionCreated: 'QUESTION_CREATED',
   questionUpdated: 'QUESTION_UPDATED',
-  questionDeleted: 'QUESTION_DELETED'
+  questionDeleted: 'QUESTION_DELETED',
+  questionAnswerDeleted: 'QUESTION_ANSWER_DELETED'
 }
 
 export default actionTypes;

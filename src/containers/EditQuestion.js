@@ -12,12 +12,20 @@ export class EditQuestion extends React.Component {
     this.props.actions.loadQuestion(props.match.params.id);
   }
 
-  onChangeCorrectAnswer = (answerId) => {
-    this.props.actions.updateQuestion('correctAnswerId', answerId)
+  onUpdateQuestion = (e) => {
+    this.props.actions.updateQuestion(e.target.name, e.target.value)
   }
 
-  onChangeAnswer = (answerId) => {
-    this.props.actions.updateQuestion('answerText', 'Hello', answerId)
+  onUpdateAnswerText = (e, answerId) => {
+    this.props.actions.updateQuestionAnswer('answerText', e.target.value, answerId)
+  }
+
+  onDeleteAnswer = (e) => {
+    this.props.actions.deleteQuestionAnswer(e.target.value);
+  }
+
+  onAddAnswer = () => {
+    this.props.actions.createAnswer();
   }
 
   render() {
@@ -29,7 +37,7 @@ export class EditQuestion extends React.Component {
 
     return (
       <div>
-        <input defaultValue={question.questionText}/>
+        <input defaultValue={question.questionText} name="questionText" onChange={this.onUpdateQuestion}/>
 
         <table>
           <thead>
@@ -44,19 +52,23 @@ export class EditQuestion extends React.Component {
           {answers.map((answer, index) => (
             <tr key={index}>
               <td>
-                <button>Delete</button>
+                <button onClick={this.onDeleteAnswer} value={answer._id}>Delete</button>
               </td>
               <td>
                 <button>Move</button>
               </td>
               <td>
-                <input defaultValue={answer.answerText} onChange={() => this.onChangeAnswer(answer._id)}/>
+                <input
+                  defaultValue={answer.answerText}
+                  name="answerText"
+                  onChange={(e) => this.onUpdateAnswerText(e, answer._id)}
+                />
               </td>
               <td>
                 <input
                   type="radio"
-                  onChange={() => this.onChangeCorrectAnswer(answer._id)}
-                  name="correctAnswer"
+                  onChange={this.onUpdateQuestion}
+                  name="correctAnswerId"
                   value={answer._id}
                   checked={answer._id === question.correctAnswerId}
                 />
@@ -65,6 +77,7 @@ export class EditQuestion extends React.Component {
           ))}
           </tbody>
         </table>
+        <button onClick={this.onAddAnswer}>Add answer</button>
       </div>
     );
   }
