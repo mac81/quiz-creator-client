@@ -1,0 +1,15 @@
+@import 'scss/reset';
+
+@import 'scss/header';
+
+.signin-container {
+  width: 60%;
+  margin: 40px auto;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.signin {
+  margin: 40px 0 0 0;
+  float: right;
+}

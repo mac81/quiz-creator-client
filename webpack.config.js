@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+//var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -9,11 +10,21 @@ module.exports = {
     path.join(__dirname, 'src/index.js')
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
         loaders: ['babel-loader'],
         exclude: /node_modules/
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: "style-loader" // creates style nodes from JS strings
+        }, {
+          loader: "css-loader" // translates CSS into CommonJS
+        }, {
+          loader: "sass-loader" // compiles Sass to CSS
+        }]
       }
     ]
   },
@@ -33,11 +44,14 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     })
+    //new ExtractTextPlugin("styles.css")
   ],
   resolve: {
+    extensions: ['.js', '.jsx'],
     alias: {
       actions: path.resolve(__dirname, 'src/actions/'),
-      reducers: path.resolve(__dirname, 'src/reducers/')
+      reducers: path.resolve(__dirname, 'src/reducers/'),
+      components: path.resolve(__dirname, 'src/components/')
     }
   }
 };

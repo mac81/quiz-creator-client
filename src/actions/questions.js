@@ -1,4 +1,4 @@
-import actionTypes from 'actions//actionTypes';
+import actionTypes from 'actions/actionTypes';
 // import {normalize, schema} from 'normalizr';
 //
 // const answer = new schema.Entity('answers', {}, {idAttribute: '_id'});
@@ -13,7 +13,10 @@ export const loadQuestions = () => {
   return (dispatch, getState) => {
     dispatch(fetchQuestions());
     fetch('/api/questions', {
-      method: 'get'
+      method: 'get',
+      headers: new Headers({
+        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
+      }),
     }).then(function (response) {
       return response.json();
     }).then(function (data) {

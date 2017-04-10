@@ -52,23 +52,23 @@ export class CreateQuestion extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {this.state.answers.map(answer, index) => (
-            <tr>
-              <td>
-                <input
-                  name="answerText"
-                  onChange={this.onUpdateAnswerText}
-                />
-              </td>
-              <td>
-                <input
-                  type="radio"
-                  onChange={this.onUpdateCorrectAnswer}
-                  name="correctAnswerId"
-                />
-              </td>
-            </tr>
-           )}
+          {/*{this.state.answers.map(answer, index) => (*/}
+            {/*<tr>*/}
+              {/*<td>*/}
+                {/*<input*/}
+                  {/*name="answerText"*/}
+                  {/*onChange={this.onUpdateAnswerText}*/}
+                {/*/>*/}
+              {/*</td>*/}
+              {/*<td>*/}
+                {/*<input*/}
+                  {/*type="radio"*/}
+                  {/*onChange={this.onUpdateCorrectAnswer}*/}
+                  {/*name="correctAnswerId"*/}
+                {/*/>*/}
+              {/*</td>*/}
+            {/*</tr>*/}
+           {/*)}*/}
           </tbody>
         </table>
 
