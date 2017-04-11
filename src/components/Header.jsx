@@ -1,13 +1,11 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import {AppBar} from 'material-ui';
 
 class Header extends React.Component {
   render() {
     return (
       <header className="header">
-        <div>Logo</div>
-        <div>User</div>
-        <RaisedButton label="Default" />
+        <AppBar title="Quiz Creator"/>
       </header>
     );
   }

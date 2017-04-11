@@ -4,6 +4,10 @@ import {bindActionCreators} from 'redux'
 import * as QuestionActions from 'actions/questions';
 import { SELECTORS } from 'reducers/questions'
 
+import {TextField, Paper} from 'material-ui';
+
+import LabelIcon from 'material-ui/svg-icons/action/label-outline';
+
 export class EditQuestion extends React.Component {
 
   constructor(props) {
@@ -12,8 +16,18 @@ export class EditQuestion extends React.Component {
     this.props.actions.loadQuestion(props.match.params.id);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.match.params.id !== nextProps.match.params.id) {
+      this.props.actions.loadQuestion(nextProps.match.params.id);
+    }
+  }
+
   onUpdateQuestion = (e) => {
     this.props.actions.updateQuestion(e.target.name, e.target.value)
+  }
+
+  onDeleteQuestion = () => {
+    this.props.actions.deleteQuestion(this.props.question._id);
   }
 
   onUpdateAnswerText = (e, answerId) => {
@@ -36,8 +50,22 @@ export class EditQuestion extends React.Component {
     }
 
     return (
-      <div>
-        <input defaultValue={question.questionText} name="questionText" onChange={this.onUpdateQuestion}/>
+
+        <Paper className="qc-panel">
+          <div className="cq-panel-header">
+            <LabelIcon/>
+            <h4>{question.label}</h4>
+            <button onClick={this.onDeleteQuestion}>Delete</button>
+          </div>
+          <div className="cq-panel-body">
+          <TextField
+            onChange={this.onUpdateQuestion}
+            value={question.questionText}
+            name="questionText"
+            floatingLabelText="Question"
+            fullWidth={true}
+          />
+        {/*<input defaultValue={question.questionText} name="questionText" onChange={this.onUpdateQuestion}/>*/}
 
         <table>
           <thead>
@@ -77,8 +105,9 @@ export class EditQuestion extends React.Component {
           ))}
           </tbody>
         </table>
-        <button onClick={this.onAddAnswer}>Add answer</button>
-      </div>
+            <button onClick={this.onAddAnswer}>Add answer</button>
+          </div>
+        </Paper>
     );
   }
 }

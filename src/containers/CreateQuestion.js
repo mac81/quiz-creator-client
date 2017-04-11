@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import * as QuestionActions from 'actions/questions';
 
+import {TextField, Paper} from 'material-ui';
+
 export class CreateQuestion extends React.Component {
 
   constructor(props) {
@@ -41,8 +43,14 @@ export class CreateQuestion extends React.Component {
 
   render() {
     return (
-      <div>
-        <input onChange={this.onChangeQuestionText}/>
+      <div className="node-details-view">
+        <Paper className="node-details-panel">
+        <TextField
+          onChange={this.onChangeQuestionText}
+          name="questionText"
+          floatingLabelText="Question"
+          fullWidth={true}
+        />
 
         <table>
           <thead>
@@ -73,6 +81,7 @@ export class CreateQuestion extends React.Component {
         </table>
 
         <button onClick={this.createQuestion}>Create</button>
+        </Paper>
       </div>
     );
   }

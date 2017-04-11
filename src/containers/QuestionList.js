@@ -30,7 +30,7 @@ export class QuestionList extends React.Component {
                         </li>
                     ))}
                 </ul>
-                <Link to="questions/new">Create new question</Link>
+                <Link to="questions/new">Create new question xxx</Link>
             </div>
         );
     }

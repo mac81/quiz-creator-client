@@ -2,6 +2,10 @@
 
 @import 'scss/header';
 
+* {
+  box-sizing: border-box;
+}
+
 .signin-container {
   width: 60%;
   margin: 40px auto;
@@ -12,4 +16,55 @@
 .signin {
   margin: 40px 0 0 0;
   float: right;
+}
+
+.quiz-container {
+  display: flex;
+  background-color: #aab2bf;
+  min-height: calc(100vh - 68px);
+}
+
+.node-sidebar-container {
+  flex: 0 0 250px;
+  background-color: #fff;
+  border-right: 1px solid #aab2bf;
+}
+
+.node-sidebar-header {
+  padding: 10px 6px;
+  background: #e1e4e9;
+  border-top: 1px solid #aab2bf;
+  border-bottom: 1px solid #aab2bf;
+}
+
+.node-sidebar-tree {
+  li {
+    box-shadow: 0 1px #f0f2f5;
+    a {
+      display: block;
+      padding: 10px;
+    }
+  }
+}
+
+.node-details-container {
+  flex: 1 0 auto;
+}
+
+.node-details-view {
+  padding: 50px;
+}
+
+.cq-panel {
+
+}
+
+.cq-panel-header {
+  padding: 10px 30px;
+  background: #2e8bc5;
+  color: #fff;
+}
+
+.cq-panel-body {
+  padding: 30px;
 }

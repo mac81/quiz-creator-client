@@ -32,7 +32,11 @@ export const loadQuestion = (questionId) => {
   return (dispatch, getState) => {
     dispatch(fetchQuestions());
     fetch(`/api/questions/${questionId}`, {
-      method: 'get'
+      method: 'get',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
+      }),
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
@@ -43,15 +47,16 @@ export const loadQuestion = (questionId) => {
   }
 };
 
-export const createQuestion = (questionName) => {
+export const createQuestion = () => {
   return (dispatch, getState) => {
     fetch(`/api/questions`, {
       method: 'post',
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
       }),
       body: JSON.stringify({
-        question: questionName
+        questionText: 'Test'//questionName
       })
     }).then(function (response) {
       return response.json();
@@ -79,8 +84,7 @@ export const createAnswer = () => {
     }).then(function (response) {
       return response.json();
     }).then(function (response) {
-      console.log(response);
-      //dispatch(questionCreated(response.payload));
+      dispatch(questionCreated(response.payload));
     }).catch(function (err) {
       console.log(err);
     });
@@ -90,7 +94,11 @@ export const createAnswer = () => {
 export const deleteQuestion = (question_id) => {
   return (dispatch, getState) => {
     fetch(`/api/questions/${question_id}`, {
-      method: 'delete'
+      method: 'delete',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
+      })
     }).then(function (response) {
       return response.json();
     }).then(function () {
@@ -108,7 +116,8 @@ export const updateQuestion = (key, value) => {
     fetch(`/api/questions/${questionId}`, {
       method: 'put',
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
       }),
       body: JSON.stringify({
         [key]: value
@@ -116,7 +125,7 @@ export const updateQuestion = (key, value) => {
     }).then(function (response) {
       return response.json();
     }).then(function (response) {
-      dispatch(questionUpdated(response.payload));
+      dispatch(questionUpdated(response));
     }).catch(function (err) {
       console.log(err);
     });
@@ -138,7 +147,7 @@ export const updateQuestionAnswer = (key, value, answerId) => {
     }).then(function (response) {
       return response.json();
     }).then(function (response) {
-      dispatch(questionUpdated(response.payload));
+      dispatch(questionUpdated(response));
     }).catch(function (err) {
       console.log(err);
     });
