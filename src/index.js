@@ -28,6 +28,7 @@ import EditQuestion from './containers/EditQuestion';
 // Components
 import Header from 'components/Header';
 import NodeSidebar from 'components/NodeSidebar';
+import LinkButton from 'components/Linkbutton';
 
 import {RaisedButton} from 'material-ui';
 import AddIcon from 'material-ui/svg-icons/content/add';
@@ -64,12 +65,7 @@ class App extends React.Component {
                         <Route exact path="/:id" component={Quiz}/>
                         <Route exact path="/:id/questions" component={CreateQuestion}/>
                         <Route path="/:id/questions/:id" component={EditQuestion}/>
-                        <RaisedButton
-                          label="After"
-                          labelPosition="before"
-                          primary={true}
-                          icon={<AddIcon/>}
-                        />
+                        <LinkButton />
                       </div>
                     </div>
                   </div>

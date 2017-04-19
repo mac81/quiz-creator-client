@@ -63,8 +63,19 @@
   padding: 10px 30px;
   background: #2e8bc5;
   color: #fff;
+  display: flex;
+  align-items: center;
 }
 
 .cq-panel-body {
   padding: 30px;
+}
+
+.cq-icon {
+  color: #fff;
+  margin: 0 10px 0 0;
+}
+
+.cq-question-label {
+  flex: 1;
 }

@@ -7,6 +7,7 @@ import { SELECTORS } from 'reducers/questions'
 import {TextField, Paper} from 'material-ui';
 
 import LabelIcon from 'material-ui/svg-icons/action/label-outline';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
 
 export class EditQuestion extends React.Component {
 
@@ -53,9 +54,9 @@ export class EditQuestion extends React.Component {
 
         <Paper className="qc-panel">
           <div className="cq-panel-header">
-            <LabelIcon/>
-            <h4>{question.label}</h4>
-            <button onClick={this.onDeleteQuestion}>Delete</button>
+            <LabelIcon className="cq-icon" color="#fff"/>
+            <h4 className="cq-question-label">{question.label}</h4>
+            <DeleteIcon onClick={this.onDeleteQuestion} color="#fff">Delete</DeleteIcon>
           </div>
           <div className="cq-panel-body">
           <TextField
