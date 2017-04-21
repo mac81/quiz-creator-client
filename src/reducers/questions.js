@@ -69,5 +69,6 @@ export default app;
 export const SELECTORS = {
   getQuestions: (state) => state.questions.questions,
   getQuestion: (state) => state.questions.question && state.questions.question,
+  //getQuestionPosition: (state) => state.questions.questions && state.questions.questions.findIndex(question => state.questions.question && question._id === state.questions.question._id), //TODO: Make this better
   getAnswers: (state) => state.questions.question && state.questions.question.answers
 };

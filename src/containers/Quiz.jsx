@@ -17,7 +17,7 @@ export class Quiz extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.quizActions.loadQuiz(props.match.params.id);
+    //this.props.quizActions.loadQuiz(props.match.params.id);
   }
 
   onAddQuestion = (e) => {

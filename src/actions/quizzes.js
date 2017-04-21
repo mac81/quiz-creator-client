@@ -1,5 +1,7 @@
 import actionTypes from 'actions/actionTypes';
 
+import {loadQuestions} from 'actions/questions';
+
 export const loadQuizzes = () => {
   return (dispatch, getState) => {
     console.log('load quizzes')
@@ -22,7 +24,6 @@ export const loadQuizzes = () => {
 
 export const loadQuiz = (quizId) => {
   return (dispatch, getState) => {
-    //dispatch(fetchQuestions());
     fetch(`/api/quiz/${quizId}`, {
       method: 'get',
       headers: new Headers({
@@ -31,7 +32,9 @@ export const loadQuiz = (quizId) => {
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
+      console.log(data);
       dispatch(setQuiz(data));
+      dispatch(loadQuestions(data._id));
     }).catch(function (err) {
       console.log(err);
     });

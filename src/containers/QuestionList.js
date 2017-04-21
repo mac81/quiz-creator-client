@@ -10,7 +10,7 @@ export class QuestionList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.props.actions.loadQuestions();
+        //this.props.actions.loadQuestions();
     }
 
     onDelete = (e) => {

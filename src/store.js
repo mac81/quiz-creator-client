@@ -7,7 +7,9 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import quizzes from './reducers/quizzes';
 import questions from './reducers/questions';
 
-const logger = createLogger();
+const logger = createLogger({
+  collapsed: true
+});
 
 export const history = createHistory();
 const middleware = routerMiddleware(history);

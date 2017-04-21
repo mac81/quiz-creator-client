@@ -22,7 +22,7 @@ export class QuizList extends React.Component {
           {quizzes && quizzes.map(item => (
             <li key={item._id}>
               <button id={item._id} onClick={this.onDelete}>Delete</button>
-              <Link to={`quizzes/${item._id}`}>{item.name}</Link>
+              <Link to={`${item._id}`}>{item.name}</Link>
             </li>
           ))}
         </ul>

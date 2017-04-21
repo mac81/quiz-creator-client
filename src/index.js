@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter,
   Route,
   Switch
 } from 'react-router-dom';
@@ -15,27 +14,24 @@ injectTapEventPlugin();
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {ConnectedRouter} from 'react-router-redux';
+import {history} from './store';
 import { loadQuestions } from './actions/questions';
 
 // Pages
 import Home from './containers/Home';
 import QuizList from './containers/QuizList';
-import Quiz from './containers/Quiz';
-import QuestionList from './containers/QuestionList';
-import CreateQuestion from './containers/CreateQuestion';
-import EditQuestion from './containers/EditQuestion';
+
+import Questionnaire from './containers/Questionnaire';
 
 // Components
 import Header from 'components/Header';
-import NodeSidebar from 'components/NodeSidebar';
-import LinkButton from 'components/Linkbutton';
 
-import {RaisedButton} from 'material-ui';
-import AddIcon from 'material-ui/svg-icons/content/add';
+
+
 
 const root = document.getElementById('app');
 
-store.dispatch(loadQuestions());
+//store.dispatch(loadQuestions());
 
 import './app.scss';
 
@@ -43,7 +39,7 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
           <MuiThemeProvider>
             <div>
               <Header />
@@ -52,23 +48,7 @@ class App extends React.Component {
                 <Route exact path="/quizzes" component={QuizList}/>
 
                 <Route path="/:id" children={({match}) => (
-                  <div className="quiz-container">
-                    <NodeSidebar match={match} />
-                    <div className="node-details-container">
-                      <div className="node-details-view">
-                        <RaisedButton
-                          label="Before"
-                          labelPosition="before"
-                          secondary={true}
-                          icon={<AddIcon/>}
-                        />
-                        <Route exact path="/:id" component={Quiz}/>
-                        <Route exact path="/:id/questions" component={CreateQuestion}/>
-                        <Route path="/:id/questions/:id" component={EditQuestion}/>
-                        <LinkButton />
-                      </div>
-                    </div>
-                  </div>
+                  <Questionnaire match={match} />
                 )}/>
 
                 {/*<Route path="/:id" component={Quiz}>*/}
@@ -82,7 +62,7 @@ class App extends React.Component {
               </Switch>
             </div>
           </MuiThemeProvider>
-        </BrowserRouter>
+        </ConnectedRouter>
       </Provider>
     );
   }

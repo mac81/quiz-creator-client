@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import * as QuestionActions from 'actions/questions';
+import { SELECTORS } from 'reducers/questions';
 
 import {TextField, Paper} from 'material-ui';
 
@@ -38,7 +39,12 @@ export class CreateQuestion extends React.Component {
   }
 
   createQuestion = () => {
-    this.props.actions.createQuestion(this.state.questionName)
+    const paths = this.props.router.location.search.split('=');
+    const insertPosition = paths[0].substring(1, paths[0].length);
+    const questionId = paths[1];
+
+    const position = this.props.questions.findIndex(question => question._id === questionId);
+    this.props.actions.createQuestion(this.state.questionText, insertPosition, position)
   }
 
   render() {
@@ -87,8 +93,15 @@ export class CreateQuestion extends React.Component {
   }
 }
 
+const mapStateToProps = (state, props) => {
+  return {
+    router: state.router,
+    questions: SELECTORS.getQuestions(state)
+  }
+};
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(QuestionActions, dispatch)
 });
 
-export default connect(undefined, mapDispatchToProps)(CreateQuestion);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateQuestion);

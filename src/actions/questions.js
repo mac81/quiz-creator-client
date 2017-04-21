@@ -9,10 +9,13 @@ import actionTypes from 'actions/actionTypes';
 //
 // const responseSchema = [question];
 
-export const loadQuestions = () => {
+export const loadQuestions = (quizId) => {
   return (dispatch, getState) => {
-    dispatch(fetchQuestions());
-    fetch('/api/questions', {
+    //dispatch(fetchQuestions());
+
+    //const quizId = getState().quizzes.quiz._id;
+
+    fetch(`/api/quiz/${quizId}/questions`, {
       method: 'get',
       headers: new Headers({
         'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
@@ -20,6 +23,7 @@ export const loadQuestions = () => {
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
+      console.log(data);
       //const normalizedData = normalize(data, responseSchema);
       dispatch(setQuestions(data));
     }).catch(function (err) {
@@ -30,7 +34,8 @@ export const loadQuestions = () => {
 
 export const loadQuestion = (questionId) => {
   return (dispatch, getState) => {
-    dispatch(fetchQuestions());
+    //dispatch(fetchQuestions());
+
     fetch(`/api/questions/${questionId}`, {
       method: 'get',
       headers: new Headers({
@@ -47,16 +52,21 @@ export const loadQuestion = (questionId) => {
   }
 };
 
-export const createQuestion = () => {
+export const createQuestion = (questionText = '', insertPosition, position) => {
   return (dispatch, getState) => {
-    fetch(`/api/questions`, {
+
+    const quizId = getState().quizzes.quiz._id;
+
+    fetch(`/api/quiz/${quizId}/questions`, {
       method: 'post',
       headers: new Headers({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
       }),
       body: JSON.stringify({
-        questionText: 'Test'//questionName
+        questionText,
+        insertPosition,
+        position
       })
     }).then(function (response) {
       return response.json();

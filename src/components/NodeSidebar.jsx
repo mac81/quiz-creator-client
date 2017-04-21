@@ -11,6 +11,11 @@ import { SELECTORS } from 'reducers/questions';
 
 class NodeSidebar extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+  }
+
   render() {
 
     const { questions, match } = this.props;
