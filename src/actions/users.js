@@ -14,9 +14,17 @@ export const signin = (username, password) => {
     }).then(function (response) {
       return response.json();
     }).then(function (json) {
-      window.sessionStorage.setItem('token', json);
+      dispatch(setUser(json.user));
+      window.sessionStorage.setItem('token', json.token);
     }).catch(function (err) {
       console.log(err);
     });
   }
 };
+
+function setUser(payload) {
+  return {
+    type: actionTypes.setUser,
+    payload
+  }
+}

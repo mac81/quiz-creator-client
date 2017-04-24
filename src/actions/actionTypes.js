@@ -8,7 +8,8 @@ const actionTypes = {
   questionDeleted: 'QUESTION_DELETED',
   questionAnswerDeleted: 'QUESTION_ANSWER_DELETED',
   setQuizzes: 'SET_QUIZZES',
-  setQuiz: 'SET_QUIZ'
+  setQuiz: 'SET_QUIZ',
+  setUser: 'SET_USER'
 }
 
 export default actionTypes;

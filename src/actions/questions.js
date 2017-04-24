@@ -1,13 +1,4 @@
 import actionTypes from 'actions/actionTypes';
-// import {normalize, schema} from 'normalizr';
-//
-// const answer = new schema.Entity('answers', {}, {idAttribute: '_id'});
-//
-// const question = new schema.Entity('questions', {
-//   answers: [answer]
-// }, {idAttribute: '_id'});
-//
-// const responseSchema = [question];
 
 export const loadQuestions = (quizId) => {
   return (dispatch, getState) => {

@@ -5,7 +5,9 @@ class Header extends React.Component {
   render() {
     return (
       <header className="header">
-        <AppBar title="Quiz Creator"/>
+        <AppBar
+          title="Quiz Creator"
+        />
       </header>
     );
   }
