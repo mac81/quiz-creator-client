@@ -8,9 +8,9 @@ export const loadQuizzes = () => {
     // dispatch(fetchQuestions());
     fetch('/api/quiz', {
       method: 'get',
-      headers: new Headers({
-        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
-      }),
+      // headers: new Headers({
+      //   'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
+      // }),
     }).then(function (response) {
       return response.json();
     }).then(function (data) {

@@ -2,7 +2,7 @@ import actionTypes from 'actions/actionTypes';
 
 export const signin = (username, password) => {
   return (dispatch, getState) => {
-    fetch('/api/users/signin', {
+    fetch('/api/accounts/signin', {
       method: 'post',
       headers: new Headers({
         'Content-Type': 'application/json'
