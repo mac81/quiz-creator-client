@@ -1,14 +1,14 @@
 import actionTypes from 'actions/actionTypes';
 
-export const signin = (username, password) => {
+export const signin = (email, password) => {
   return (dispatch, getState) => {
-    fetch('/api/accounts/signin', {
+    fetch('/api/auth/login', {
       method: 'post',
       headers: new Headers({
         'Content-Type': 'application/json'
       }),
       body: JSON.stringify({
-        username,
+        email,
         password
       })
     }).then(function (response) {
