@@ -13,6 +13,7 @@ import {store} from './store';
 import {ConnectedRouter} from 'react-router-redux';
 import {history} from './store';
 import { loadQuestions } from './actions/questions';
+import { authenticate } from './actions/users';
 
 // Pages
 import Home from './containers/Home';
@@ -28,7 +29,7 @@ import Header from 'components/Header';
 
 const root = document.getElementById('app');
 
-//store.dispatch(loadQuestions());
+store.dispatch(auhenticate());
 
 import './app.scss';
 
