@@ -12,15 +12,17 @@ const errorMessages = {
   minLength: 'Username must be at least 5 characters long'
 }
 
-export class SignIn extends React.Component {
+export class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
-      enableSignin: false
+      firstname: '',
+      lastname: '',
+      enableSignup: false
     }
   }
 
@@ -30,31 +32,31 @@ export class SignIn extends React.Component {
     })
   }
 
-  enableSigin = () => {
+  enableSigup = () => {
     this.setState({
-      enableSignin: true
+      enableSignup: true
     })
   }
 
-  disableSigin = () => {
+  disableSignup = () => {
     this.setState({
-      enableSignin: false
+      enableSignup: false
     })
   }
 
-  signin = () => {
-    const { username, password } = this.state;
-console.log("OK")
-    this.props.actions.signin(username, password);
+  signup = () => {
+    const { username, password, firstname, lastname } = this.state;
+
+    this.props.actions.signup(username, password, firstname, lastname);
   }
 
   render() {
     return (
       <Paper className="signin-container">
         <Formsy.Form
-          onValidSubmit={this.signin}
-          onValid={this.enableSigin}
-          onInvalid={this.disableSigin}
+          onValidSubmit={this.signup}
+          onValid={this.enableSigup}
+          onInvalid={this.disableSignup}
         >
           <FormsyText
             onChange={this.onChange}
@@ -83,12 +85,28 @@ console.log("OK")
             }}
           />
 
+          <FormsyText
+            onChange={this.onChange}
+            name="firstname"
+            floatingLabelText="First name"
+            fullWidth={true}
+            required
+          />
+
+          <FormsyText
+            onChange={this.onChange}
+            name="lastname"
+            floatingLabelText="Last name"
+            fullWidth={true}
+            required
+          />
+
           <RaisedButton
             type="submit"
             label="Submit"
             className="signin"
             primary={true}
-            disabled={!this.state.enableSignin}
+            disabled={!this.state.enableSignup}
           />
         </Formsy.Form>
       </Paper>
@@ -107,4 +125,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(UserActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

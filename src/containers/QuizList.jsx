@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom';
 import * as QuizActions from 'actions/quizzes';
 import { SELECTORS } from 'reducers/quizzes';
+import {SELECTORS as SELECTORS2} from 'reducers/user';
+import { Redirect } from 'react-router-dom';
 
 export class QuizList extends React.Component {
 
@@ -14,7 +16,17 @@ export class QuizList extends React.Component {
   }
 
   render() {
-    const { quizzes } = this.props;
+    const { quizzes, user } = this.props;
+
+    console.log('xxx', user);
+    if(!user.isLoggedIn){
+      return (
+        <Redirect to={{
+          pathname: '/',
+          state: { from: '/quizzes' }
+        }}/>
+      )
+    }
 
     return (
       <div>
@@ -33,7 +45,8 @@ export class QuizList extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    quizzes: SELECTORS.getQuizzes(state)
+    quizzes: SELECTORS.getQuizzes(state),
+    user: SELECTORS2.getUser(state)
   }
 };
 

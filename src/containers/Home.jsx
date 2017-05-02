@@ -4,6 +4,7 @@ import { SELECTORS } from 'reducers/user';
 
 import { Redirect } from 'react-router-dom';
 import SignIn from 'components/SignIn';
+import SignUp from 'components/SignUp';
 
 class Home extends React.Component {
 
@@ -18,7 +19,10 @@ class Home extends React.Component {
           state: { from: '/' }
         }}/>
       ) : (
-        <SignIn/>
+        <div>
+          <SignIn/>
+          {/*<SignUp/>*/}
+        </div>
       )
     );
   }

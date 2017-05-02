@@ -10,8 +10,14 @@ function app(state = initialState, action) {
   case actionTypes.setUser:
     return {
       ...state,
-      user: action.payload,
+      ...action.payload,
       isLoggedIn: true
+    };
+
+  case actionTypes.unSetUser:
+    return {
+      ...state,
+      isLoggedIn: false
     };
 
   case actionTypes.setQuiz:

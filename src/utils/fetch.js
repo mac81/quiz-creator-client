@@ -1,4 +1,4 @@
-import {logoutUser} from 'actions/users';
+import {logout} from 'actions/users';
 
 const fetch = (url, options = {}) => new Promise((resolve, reject) => {
   options.headers = options.headers || {};
@@ -20,7 +20,7 @@ const fetch = (url, options = {}) => new Promise((resolve, reject) => {
 
 const responseHandler = (response, type) => {
     if(response.status === 401) {
-        logoutUser();
+        logout();
     } else {
         return response.json();
     }

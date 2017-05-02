@@ -27,7 +27,16 @@ export class Questionnaire extends React.Component {
   }
 
   render() {
-    const { match } = this.props;
+    const { match, user } = this.props;
+    console.log(user);
+    if(!user.isLoggedIn){
+      return (
+        <Redirect to={{
+          pathname: '/',
+          state: { from: '/quizzes' }
+        }}/>
+      )
+    }
 
     return (
       <div className="quiz-container">
@@ -54,7 +63,8 @@ export class Questionnaire extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    quiz: SELECTORS.getQuiz(state)
+    quiz: SELECTORS.getQuiz(state),
+    user: SELECTORS.getUser(state)
   }
 };
 
