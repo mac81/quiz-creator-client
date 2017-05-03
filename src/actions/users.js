@@ -1,7 +1,37 @@
 import actionTypes from 'actions/actionTypes';
 import fetch from '../utils/fetch';
 
-export function logout() {
+export const signin = (email, password) => {
+  return (dispatch, getState) => {
+    fetch('/api/auth/login', {
+      method: 'post',
+      body: JSON.stringify({
+        email,
+        password
+      })
+    }).then(function (response) {
+      dispatch(setUser(response));
+    });
+  }
+};
+
+export const signup = (email, password, firstname, lastname) => {
+  return (dispatch, getState) => {
+    fetch('/api/auth/register', {
+      method: 'post',
+      body: JSON.stringify({
+        email,
+        password,
+        firstName: firstname,
+        lastName: lastname
+      })
+    }).then(function (response) {
+      dispatch(setUser(response));
+    });
+  }
+};
+
+function signOut() {
   return (dispatch, getState) => {
     window.sessionStorage.clear();
     dispatch({
@@ -10,70 +40,32 @@ export function logout() {
   }
 }
 
-export const signin = (email, password) => {
-  return (dispatch, getState) => {
-    window.fetch('/api/auth/login', {
-      method: 'post',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }),
-      body: JSON.stringify({
-        email,
-        password
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      console.log(json);
-      dispatch(setUser(json.user));
-      window.sessionStorage.setItem('userId', json.user._id);
-      window.sessionStorage.setItem('token', json.token);
-    }).catch(function (err) {
-      console.log(err);
-    });
-  }
-};
-
-export const signup = (email, password, firstname, lastname) => {
-  return (dispatch, getState) => {
-    window.fetch('/api/auth/register', {
-      method: 'post',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }),
-      body: JSON.stringify({
-        email,
-        password,
-        firstName: firstname,
-        lastName: lastname
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      dispatch(setUser(json.user));
-      window.sessionStorage.setItem('userId', json.user._id);
-      window.sessionStorage.setItem('token', json.token);
-    }).catch(function (err) {
-      console.log(err);
-    });
-  }
-};
-
-export const getUserInfo = (userId = window.sessionStorage.getItem('userId')) => {
+export const getUserInfo = () => {
   return (dispatch, getState) => {
 
-    if(userId) {
+    const userId = window.sessionStorage.getItem('userId');
+    const token = window.sessionStorage.getItem('token');
+
+    if(userId && token) {
       fetch(`/api/users/${userId}`)
         .then(response => {
-          dispatch(setUser(response.user));
+          if(response.status === 401) {
+            dispatch(signOut());
+          } else {
+            dispatch(setUser(response));
+          }
         });
     }
   }
 };
 
 function setUser(payload) {
+
+  window.sessionStorage.setItem('userId', payload.user._id);
+  window.sessionStorage.setItem('token', payload.token);
+
   return {
     type: actionTypes.setUser,
-    payload
+    payload: payload.user
   }
 }

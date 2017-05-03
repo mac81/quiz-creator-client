@@ -15,6 +15,9 @@ import { SELECTORS } from 'reducers/quizzes';
 
 import NodeSidebar from 'components/NodeSidebar';
 import LinkButton from 'components/Linkbutton';
+// Components
+import Header from 'components/Header';
+
 
 import Quiz from '../containers/Quiz';
 import CreateQuestion from '../containers/CreateQuestion';
@@ -40,6 +43,7 @@ export class Questionnaire extends React.Component {
 
     return (
       <div className="quiz-container">
+        <Header />
         <NodeSidebar match={match} />
         <div className="node-details-container">
           <div className="node-details-view">

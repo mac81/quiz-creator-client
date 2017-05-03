@@ -1,10 +1,9 @@
-import {logout} from 'actions/users';
-
 const fetch = (url, options = {}) => new Promise((resolve, reject) => {
   options.headers = options.headers || {};
   options.method = options.method || 'GET';
 
   Object.assign(options.headers, {
+    'Content-Type': 'application/json',
     'Authorization': window.sessionStorage.getItem('token')
   });
 
@@ -18,9 +17,12 @@ const fetch = (url, options = {}) => new Promise((resolve, reject) => {
     .catch(e => reject(e));
 });
 
-const responseHandler = (response, type) => {
+const responseHandler = (response) => {
     if(response.status === 401) {
-        logout();
+      return {
+        status: response.status,
+        statusText: response.statusText
+      };
     } else {
         return response.json();
     }

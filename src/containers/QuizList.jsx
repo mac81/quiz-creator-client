@@ -18,15 +18,15 @@ export class QuizList extends React.Component {
   render() {
     const { quizzes, user } = this.props;
 
-    console.log('xxx', user);
-    if(!user.isLoggedIn){
-      return (
-        <Redirect to={{
-          pathname: '/',
-          state: { from: '/quizzes' }
-        }}/>
-      )
-    }
+    // console.log('xxx', user);
+    // if(!user.isLoggedIn){
+    //   return (
+    //     <Redirect to={{
+    //       pathname: '/',
+    //       state: { from: '/quizzes' }
+    //     }}/>
+    //   )
+    // }
 
     return (
       <div>
