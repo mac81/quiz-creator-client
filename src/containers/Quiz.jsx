@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
-import {bindActionCreators} from 'redux'
+import {bindActionCreators} from 'redux';
 
 // Actions
 import * as QuizActions from 'actions/quizzes';
@@ -17,13 +17,12 @@ export class Quiz extends React.Component {
   constructor(props) {
     super(props);
 
-    //this.props.quizActions.loadQuiz(props.match.params.id);
+    this.props.quizActions.loadQuiz(props.match.params.id);
   }
 
   onAddQuestion = (e) => {
     e.preventDefault();
     this.props.questionActions.createQuestion();
-    // TODO: Redirect to created question
   }
 
   render() {

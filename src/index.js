@@ -24,7 +24,7 @@ import Questionnaire from 'containers/Questionnaire';
 
 const root = document.getElementById('app');
 
-//store.dispatch(getUserInfo());
+store.dispatch(getUserInfo());
 
 import './app.scss';
 

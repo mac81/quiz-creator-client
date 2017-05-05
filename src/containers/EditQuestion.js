@@ -14,7 +14,7 @@ export class EditQuestion extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.actions.loadQuestion(props.match.params.id);
+    this.props.actions.loadQuestion(props.match.params.id, props.match.params.question_id);
   }
 
   componentWillReceiveProps(nextProps) {

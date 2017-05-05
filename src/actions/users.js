@@ -1,5 +1,6 @@
 import actionTypes from 'actions/actionTypes';
 import fetch from '../utils/fetch';
+import { push } from 'react-router-redux';
 
 export const signin = (email, password) => {
   return (dispatch, getState) => {
@@ -11,6 +12,7 @@ export const signin = (email, password) => {
       })
     }).then(function (response) {
       dispatch(setUser(response));
+      //dispatch(push('/quizzes'));
     });
   }
 };
@@ -50,7 +52,8 @@ export const getUserInfo = () => {
       fetch(`/api/users/${userId}`)
         .then(response => {
           if(response.status === 401) {
-            dispatch(signOut());
+            console.log('Fetch user failed');
+            //dispatch(signOut());
           } else {
             dispatch(setUser(response));
           }
@@ -62,7 +65,9 @@ export const getUserInfo = () => {
 function setUser(payload) {
 
   window.sessionStorage.setItem('userId', payload.user._id);
-  window.sessionStorage.setItem('token', payload.token);
+  if(payload.token) {
+    window.sessionStorage.setItem('token', payload.token);
+  }
 
   return {
     type: actionTypes.setUser,

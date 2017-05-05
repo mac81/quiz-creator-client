@@ -1,10 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom';
 import {bindActionCreators} from 'redux'
-import {
-  Route
-} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 // Actions
 import * as QuizActions from 'actions/quizzes';
@@ -13,12 +10,12 @@ import * as QuestionActions from 'actions/questions';
 // Selectors
 import { SELECTORS } from 'reducers/quizzes';
 
-import NodeSidebar from 'components/NodeSidebar';
-import LinkButton from 'components/Linkbutton';
 // Components
 import Header from 'components/Header';
+import NodeSidebar from 'components/NodeSidebar';
+import LinkButton from 'components/Linkbutton';
 
-
+// Containers
 import Quiz from '../containers/Quiz';
 import CreateQuestion from '../containers/CreateQuestion';
 import EditQuestion from '../containers/EditQuestion';
@@ -26,38 +23,32 @@ import EditQuestion from '../containers/EditQuestion';
 export class Questionnaire extends React.Component {
 
   componentDidMount() {
+    console.log('abc');
     this.props.quizActions.loadQuiz(this.props.match.params.id);
   }
 
   render() {
-    const { match, user } = this.props;
-    console.log(user);
-    if(!user.isLoggedIn){
-      return (
-        <Redirect to={{
-          pathname: '/',
-          state: { from: '/quizzes' }
-        }}/>
-      )
-    }
+    const { match } = this.props;
 
     return (
-      <div className="quiz-container">
+      <div>
         <Header />
-        <NodeSidebar match={match} />
-        <div className="node-details-container">
-          <div className="node-details-view">
-            <LinkButton
-              label="Before"
-              insertPosition="before"
-            />
-            <Route exact path="/:id" component={Quiz}/>
-            <Route exact path="/:id/questions" component={CreateQuestion}/>
-            <Route path="/:id/questions/:id" component={EditQuestion}/>
-            <LinkButton
-              label="After"
-              insertPosition="after"
-            />
+        <div className="quiz-container">
+          <NodeSidebar match={match} />
+          <div className="node-details-container">
+            <div className="node-details-view">
+              <LinkButton
+                label="Before"
+                insertPosition="before"
+              />
+              <Route exact path="/:id" component={Quiz}/>
+              <Route exact path="/:id/questions" component={CreateQuestion}/>
+              <Route exact path="/:id/questions/:question_id" component={EditQuestion}/>
+              <LinkButton
+                label="After"
+                insertPosition="after"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -67,8 +58,7 @@ export class Questionnaire extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    quiz: SELECTORS.getQuiz(state),
-    user: SELECTORS.getUser(state)
+    quiz: SELECTORS.getQuiz(state)
   }
 };
 

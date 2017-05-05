@@ -1,4 +1,6 @@
 import actionTypes from 'actions/actionTypes';
+import fetch from 'utils/fetch';
+import {push} from 'react-router-redux';
 
 export const loadQuestions = (quizId) => {
   return (dispatch, getState) => {
@@ -6,40 +8,24 @@ export const loadQuestions = (quizId) => {
 
     //const quizId = getState().quizzes.quiz._id;
 
-    fetch(`/api/quiz/${quizId}/questions`, {
-      method: 'get',
-      headers: new Headers({
-        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
-      }),
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
+    fetch(`/api/quiz/${quizId}/questions`)
+      .then(function (data) {
       console.log(data);
-      //const normalizedData = normalize(data, responseSchema);
       dispatch(setQuestions(data));
-    }).catch(function (err) {
-      console.log(err);
     });
   }
 };
 
-export const loadQuestion = (questionId) => {
+export const loadQuestion = (quizId, questionId) => {
   return (dispatch, getState) => {
     //dispatch(fetchQuestions());
+    //const quizId = getState().quizzes.quiz._id;
 
-    fetch(`/api/questions/${questionId}`, {
-      method: 'get',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
-      }),
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      dispatch(setQuestion(data));
-    }).catch(function (err) {
-      console.log(err);
-    });
+    fetch(`/api/quiz/${quizId}/questions/${questionId}`)
+      .then(function (data) {
+        console.log(data);
+        //dispatch(setQuestion(data));
+      });
   }
 };
 
@@ -50,21 +36,14 @@ export const createQuestion = (questionText = '', insertPosition, position) => {
 
     fetch(`/api/quiz/${quizId}/questions`, {
       method: 'post',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
-      }),
       body: JSON.stringify({
         questionText,
         insertPosition,
         position
       })
     }).then(function (response) {
-      return response.json();
-    }).then(function (response) {
       dispatch(questionCreated(response.payload));
-    }).catch(function (err) {
-      console.log(err);
+      dispatch(push(`${quizId}/questions/${response.payload._id}`));
     });
   }
 };

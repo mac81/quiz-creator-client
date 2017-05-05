@@ -30,7 +30,7 @@ function app(state = initialState, action) {
     return {
       ...state,
       questions: [
-        ...state.questions,
+        ...state,
         action.payload
       ]
     };

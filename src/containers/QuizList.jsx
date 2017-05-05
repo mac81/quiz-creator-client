@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import * as QuizActions from 'actions/quizzes';
 import { SELECTORS } from 'reducers/quizzes';
 import {SELECTORS as SELECTORS2} from 'reducers/user';
-import { Redirect } from 'react-router-dom';
+import Header from 'components/Header';
+
+import {getDate} from 'utils/dates';
 
 export class QuizList extends React.Component {
 
@@ -18,23 +20,15 @@ export class QuizList extends React.Component {
   render() {
     const { quizzes, user } = this.props;
 
-    // console.log('xxx', user);
-    // if(!user.isLoggedIn){
-    //   return (
-    //     <Redirect to={{
-    //       pathname: '/',
-    //       state: { from: '/quizzes' }
-    //     }}/>
-    //   )
-    // }
-
     return (
       <div>
+        <Header/>
         <ul>
           {quizzes && quizzes.map(item => (
             <li key={item._id}>
-              <button id={item._id} onClick={this.onDelete}>Delete</button>
               <Link to={`${item._id}`}>{item.name}</Link>
+              <span>Created: {getDate(item.createdAt)}</span>
+              <button id={item._id} onClick={this.onDelete}>Delete</button>
             </li>
           ))}
         </ul>

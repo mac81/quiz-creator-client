@@ -52,7 +52,8 @@ module.exports = {
       actions: path.resolve(__dirname, 'src/actions/'),
       reducers: path.resolve(__dirname, 'src/reducers/'),
       containers: path.resolve(__dirname, 'src/containers/'),
-      components: path.resolve(__dirname, 'src/components/')
+      components: path.resolve(__dirname, 'src/components/'),
+      utils: path.resolve(__dirname, 'src/utils/')
     }
   }
 };
