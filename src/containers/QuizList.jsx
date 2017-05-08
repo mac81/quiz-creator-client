@@ -23,6 +23,7 @@ export class QuizList extends React.Component {
     return (
       <div>
         <Header/>
+        <Link to={`new-quiz`}>New quiz</Link>
         <ul>
           {quizzes && quizzes.map(item => (
             <li key={item._id}>

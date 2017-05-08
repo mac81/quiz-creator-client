@@ -42,7 +42,7 @@ function signOut() {
   }
 }
 
-export const getUserInfo = () => {
+export const Authenticate = () => {
   return (dispatch, getState) => {
 
     const userId = window.sessionStorage.getItem('userId');
@@ -53,11 +53,12 @@ export const getUserInfo = () => {
         .then(response => {
           if(response.status === 401) {
             console.log('Fetch user failed');
-            //dispatch(signOut());
           } else {
             dispatch(setUser(response));
           }
         });
+    } else {
+      console.log('Auth failed, redirect to signin');
     }
   }
 };

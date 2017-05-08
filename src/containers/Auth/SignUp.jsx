@@ -44,7 +44,7 @@ export class SignIn extends React.Component {
 
   signin = () => {
     const { username, password } = this.state;
-console.log("OK")
+
     this.props.actions.signin(username, password);
   }
 
