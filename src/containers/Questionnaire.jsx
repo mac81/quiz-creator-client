@@ -1,29 +1,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
-import {Route} from 'react-router-dom';
+import { Switch, Link, Route } from 'react-router-dom';
 
 // Actions
 import * as QuizActions from 'actions/quizzes';
 import * as QuestionActions from 'actions/questions';
 
 // Selectors
-import { SELECTORS } from 'reducers/quizzes';
+import { SELECTORS } from 'reducers/quiz';
 
 // Components
 import Header from 'components/Header';
-import NodeSidebar from 'components/NodeSidebar';
-import LinkButton from 'components/Linkbutton';
 
 // Containers
-import Quiz from '../containers/Quiz';
-import CreateQuestion from '../containers/CreateQuestion';
-import EditQuestion from '../containers/EditQuestion';
+import Overview from '../containers/Quiz/Overview';
+import Builder from '../containers/Quiz/Builder';
+import Deployment from '../containers/Quiz/Deployment';
 
 export class Questionnaire extends React.Component {
 
   componentDidMount() {
-    console.log('abc');
     this.props.quizActions.loadQuiz(this.props.match.params.id);
   }
 
@@ -33,23 +30,23 @@ export class Questionnaire extends React.Component {
     return (
       <div>
         <Header />
+        <ul>
+          <li>
+            <Link to={`/${match.params.id}`}>Overview</Link>
+          </li>
+          <li>
+            <Link to={`/${match.params.id}/questions`}>Builder</Link>
+          </li>
+          <li>
+            <Link to={`/${match.params.id}/deployment`}>Deployment</Link>
+          </li>
+        </ul>
         <div className="quiz-container">
-          <NodeSidebar match={match} />
-          <div className="node-details-container">
-            <div className="node-details-view">
-              <LinkButton
-                label="Before"
-                insertPosition="before"
-              />
-              <Route exact path="/:id" component={Quiz}/>
-              <Route exact path="/:id/questions" component={CreateQuestion}/>
-              <Route exact path="/:id/questions/:question_id" component={EditQuestion}/>
-              <LinkButton
-                label="After"
-                insertPosition="after"
-              />
-            </div>
-          </div>
+          <Switch>
+            <Route exact path="/:id" component={Overview}/>
+            <Route path="/:id/questions" component={Builder}/>
+            <Route exact path="/:id/deployment" component={Deployment}/>
+          </Switch>
         </div>
       </div>
     );

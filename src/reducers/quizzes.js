@@ -14,11 +14,15 @@ function app(state = initialState, action) {
       isLoading: false
     };
 
-  case actionTypes.setQuiz:
-    return {
-      ...state,
-      quiz: action.payload
-    };
+  // case actionTypes.setQuiz:
+  //   console.log(state)
+  //   return {
+  //     ...state,
+  //     quizzes: {
+  //       ...state.quizzes,
+  //       quiz: action.payload
+  //     }
+  //   };
 
 
   default:
@@ -30,5 +34,6 @@ export default app;
 
 export const SELECTORS = {
   getQuizzes: (state) => state.quizzes.quizzes,
-  getQuiz: (state) => state.quizzes.quiz
+  // getQuiz: (state) => state.quizzes.quiz,
+  // getQuizQuestions: (state) => state.quizzes.quiz && state.quizzes.quiz.questions
 };

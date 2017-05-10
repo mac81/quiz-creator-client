@@ -6,13 +6,12 @@ export const loadQuestions = (quizId) => {
   return (dispatch, getState) => {
     //dispatch(fetchQuestions());
 
-    //const quizId = getState().quizzes.quiz._id;
+    //const quizId = getState().quiz._id;
 
     fetch(`/api/quiz/${quizId}/questions`)
       .then(function (data) {
-      console.log(data);
-      dispatch(setQuestions(data));
-    });
+        dispatch(setQuestions(data));
+      });
   }
 };
 
@@ -21,10 +20,9 @@ export const loadQuestion = (quizId, questionId) => {
     //dispatch(fetchQuestions());
     //const quizId = getState().quizzes.quiz._id;
 
-    fetch(`/api/quiz/${quizId}/questions/${questionId}`)
+    fetch(`/api/quiz/questions/${questionId}`)
       .then(function (data) {
-        console.log(data);
-        //dispatch(setQuestion(data));
+        dispatch(setQuestion(data));
       });
   }
 };
@@ -32,7 +30,7 @@ export const loadQuestion = (quizId, questionId) => {
 export const createQuestion = (questionText = '', insertPosition, position) => {
   return (dispatch, getState) => {
 
-    const quizId = getState().quizzes.quiz._id;
+    const quizId = getState().quiz._id;
 
     fetch(`/api/quiz/${quizId}/questions`, {
       method: 'post',
@@ -43,7 +41,7 @@ export const createQuestion = (questionText = '', insertPosition, position) => {
       })
     }).then(function (response) {
       dispatch(questionCreated(response.payload));
-      dispatch(push(`${quizId}/questions/${response.payload._id}`));
+      dispatch(push(`/${quizId}/questions/${response.payload._id}`));
     });
   }
 };
@@ -73,19 +71,15 @@ export const createAnswer = () => {
 
 export const deleteQuestion = (question_id) => {
   return (dispatch, getState) => {
-    fetch(`/api/questions/${question_id}`, {
-      method: 'delete',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
-      })
-    }).then(function (response) {
-      return response.json();
+
+    const quizId = getState().quiz._id;
+
+    fetch(`/api/quiz/questions/${question_id}`, {
+      method: 'delete'
     }).then(function () {
-      dispatch(questionDeleted(question_id));
-    }).catch(function (err) {
-      console.log(err);
-    });
+        dispatch(questionDeleted(question_id));
+        dispatch(push(`/${quizId}/questions`));
+      });
   }
 };
 

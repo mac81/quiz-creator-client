@@ -9,7 +9,7 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 const LinkButton = ({ router, question, label, insertPosition }) => {
   const paths = router.location.pathname.split('/');
   const quizId = paths[1];
-console.log(label);
+
   return (
     <RaisedButton
       label={label}

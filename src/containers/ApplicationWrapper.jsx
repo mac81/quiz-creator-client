@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { SELECTORS } from 'reducers/user';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import AuthRoute from 'containers/Auth/AuthRoute';
 import QuizList from 'containers/QuizList';
@@ -23,12 +23,11 @@ class ApplicationWrapper extends React.Component {
 
     return (
         <div>
+          <Switch>
             <AuthRoute exact path="/quizzes" component={QuizList}/>
             <AuthRoute exact path="/new-quiz" component={NewQuiz}/>
-
-            <Route path="/:id" children={({match}) => (
-              <Questionnaire match={match} />
-            )}/>
+            <Route path="/:id" component={Questionnaire}/>
+          </Switch>
         </div>
     );
   }

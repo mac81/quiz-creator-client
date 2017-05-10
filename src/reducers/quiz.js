@@ -1,24 +1,18 @@
 import actionTypes from 'actions/actionTypes';
 
 const initialState = {
-  isLoggedIn: false
+  isLoading: false
 };
 
 function app(state = initialState, action) {
   switch (action.type) {
 
-  case actionTypes.setUser:
+  case actionTypes.setQuiz:
     return {
       ...state,
-      ...action.payload,
-      isLoggedIn: true
+      ...action.payload
     };
 
-  case actionTypes.unSetUser:
-    return {
-      ...state,
-      isLoggedIn: false
-    };
 
   default:
     return state
@@ -28,5 +22,6 @@ function app(state = initialState, action) {
 export default app;
 
 export const SELECTORS = {
-  getUser: (state) => state.user
+  getQuiz: (state) => state.quiz,
+  getQuizQuestions: (state) => state.quiz.questions
 };

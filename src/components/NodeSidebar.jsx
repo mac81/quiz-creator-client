@@ -26,7 +26,7 @@ class NodeSidebar extends React.Component {
         <ul className="node-sidebar-tree">
           {questions && questions.map(question => (
             <li key={question._id}>
-              <Link to={`${match.url}/questions/${question._id}`}>{question.label}</Link>
+              <Link to={`/${match.params.id}/questions/${question._id}`}>{question.label}</Link>
             </li>
           ))}
         </ul>

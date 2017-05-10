@@ -18,8 +18,8 @@ export class EditQuestion extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.match.params.id !== nextProps.match.params.id) {
-      this.props.actions.loadQuestion(nextProps.match.params.id);
+    if(this.props.match.params.question_id !== nextProps.match.params.question_id) {
+      this.props.actions.loadQuestion(this.props.match.params.id, nextProps.match.params.question_id);
     }
   }
 

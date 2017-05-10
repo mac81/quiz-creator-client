@@ -6,6 +6,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 
 import application from './reducers/application';
 import quizzes from './reducers/quizzes';
+import quiz from './reducers/quiz';
 import questions from './reducers/questions';
 import user from './reducers/user';
 
@@ -20,6 +21,7 @@ export const store = createStore(
   combineReducers({
     application,
     quizzes,
+    quiz,
     questions,
     user,
     router: routerReducer,

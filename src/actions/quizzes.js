@@ -21,9 +21,22 @@ export const loadQuiz = (quizId) => {
   return (dispatch, getState) => {
     fetch(`/api/quiz/${quizId}`)
       .then(function (data) {
-        console.log(data);
         dispatch(setQuiz(data));
         //dispatch(loadQuestions(data._id));
+    });
+  }
+};
+
+export const createQuiz = (name) => {
+  return (dispatch, getState) => {
+    fetch(`/api/quiz`, {
+      method: 'post',
+      body: JSON.stringify({
+        name
+      })
+    }).then(function (data) {
+      const quizId = data.payload._id;
+      dispatch(push(`/${quizId}`));
     });
   }
 };
