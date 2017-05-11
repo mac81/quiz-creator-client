@@ -10,9 +10,6 @@ import * as QuestionActions from 'actions/questions';
 // Selectors
 import { SELECTORS } from 'reducers/quiz';
 
-// Components
-import Header from 'components/Header';
-
 // Containers
 import Overview from '../containers/Quiz/Overview';
 import Builder from '../containers/Quiz/Builder';
@@ -29,8 +26,7 @@ export class Questionnaire extends React.Component {
 
     return (
       <div>
-        <Header />
-        <ul>
+        <ul className="questionnaire-menu">
           <li>
             <Link to={`/${match.params.id}`}>Overview</Link>
           </li>

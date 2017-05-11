@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AppBar} from 'material-ui';
+//import {AppBar} from 'material-ui';
 import AccountDropdown from 'components/AccountDropdown';
 
 class Header extends React.Component {
@@ -9,9 +9,12 @@ class Header extends React.Component {
 
     return (
       <header className="header">
-        <AppBar
-          title="Quiz Creator"
-        />
+        <h2 className="header-title">Quiz Creator</h2>
+        {/*<AppBar*/}
+          {/*className="header-bar"*/}
+          {/*title="Quiz Creator"*/}
+          {/*showMenuIconButton={false}*/}
+        {/*/>*/}
         <AccountDropdown />
       </header>
     );

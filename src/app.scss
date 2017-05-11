@@ -2,8 +2,47 @@
 
 @import 'scss/header';
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+
 * {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.header {
+  padding: 20px;
+  //background: linear-gradient(to bottom right, #3FBC86, #289B6C);
+  background: #75808c;
+}
+
+//#49A677 #41966B
+
+.header-title {
+  color: #fff;
+  font-size: 30px;
+}
+
+.questionnaire-menu {
+  background: linear-gradient(to bottom right, #49A677, #41966B);
+  display: flex;
+  border-top: 1px solid darken(#49A677, 5%);
+  border-bottom: 1px solid darken(#49A677, 5%);
+  li {
+    padding: 10px 20px;
+    border-right: 1px solid darken(#49A677, 5%);
+  }
+  a {
+    color: #fff;
+    font-size: 16px;
+  }
 }
 
 .signin-container {
@@ -20,29 +59,30 @@
 
 .node-container {
   display: flex;
-  background-color: #aab2bf;
+  background-color: #F7F9FC;
   min-height: calc(100vh - 68px);
 }
 
 .node-sidebar-container {
   flex: 0 0 250px;
-  background-color: #fff;
-  border-right: 1px solid #aab2bf;
+  background: linear-gradient(to bottom, #4E6288, #3C2645);
+  //border-right: 1px solid #aab2bf;
 }
 
 .node-sidebar-header {
   padding: 10px 6px;
-  background: #e1e4e9;
-  border-top: 1px solid #aab2bf;
-  border-bottom: 1px solid #aab2bf;
+  background: darken(#4E6288, 10%);
+  border-bottom: 1px solid darken(#4E6288, 15%);
+  color: #e1e1e1;
 }
 
 .node-sidebar-tree {
   li {
-    box-shadow: 0 1px #f0f2f5;
+    box-shadow: 0 1px darken(#4E6288, 15%);
     a {
       display: block;
       padding: 10px;
+      color: #e1e1e1;
     }
   }
 }

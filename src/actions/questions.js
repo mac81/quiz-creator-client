@@ -89,19 +89,11 @@ export const updateQuestion = (key, value) => {
 
     fetch(`/api/questions/${questionId}`, {
       method: 'put',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${window.sessionStorage.getItem('token')}`
-      }),
       body: JSON.stringify({
         [key]: value
       })
     }).then(function (response) {
-      return response.json();
-    }).then(function (response) {
       dispatch(questionUpdated(response));
-    }).catch(function (err) {
-      console.log(err);
     });
   }
 };

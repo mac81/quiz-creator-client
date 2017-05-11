@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import * as QuizActions from 'actions/quizzes';
 import { SELECTORS } from 'reducers/quizzes';
 import {SELECTORS as SELECTORS2} from 'reducers/user';
-import Header from 'components/Header';
 
 import {getDate} from 'utils/dates';
 
@@ -22,7 +21,6 @@ export class QuizList extends React.Component {
 
     return (
       <div>
-        <Header/>
         <Link to={`new-quiz`}>New quiz</Link>
         <ul>
           {quizzes && quizzes.map(item => (

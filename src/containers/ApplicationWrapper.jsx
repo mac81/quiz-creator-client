@@ -8,6 +8,8 @@ import QuizList from 'containers/QuizList';
 import NewQuiz from 'containers/Quiz/NewQuiz';
 import Questionnaire from 'containers/Questionnaire';
 
+// Components
+import Header from 'components/Header';
 
 class ApplicationWrapper extends React.Component {
 
@@ -23,6 +25,7 @@ class ApplicationWrapper extends React.Component {
 
     return (
         <div>
+          <Header/>
           <Switch>
             <AuthRoute exact path="/quizzes" component={QuizList}/>
             <AuthRoute exact path="/new-quiz" component={NewQuiz}/>
