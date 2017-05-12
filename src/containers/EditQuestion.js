@@ -2,7 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import * as QuestionActions from 'actions/questions';
-import { SELECTORS } from 'reducers/questions'
+import * as AnswerActions from 'actions/answers';
+import { SELECTORS as QUESTION_SELECTORS } from 'reducers/question';
+import { SELECTORS as ANSWER_SELECTORS } from 'reducers/answers';
 
 import {TextField, Paper} from 'material-ui';
 
@@ -15,6 +17,7 @@ export class EditQuestion extends React.Component {
     super(props);
 
     this.props.actions.loadQuestion(props.match.params.id, props.match.params.question_id);
+    this.props.answerActions.loadAnswers(props.match.params.id, props.match.params.question_id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,15 +35,15 @@ export class EditQuestion extends React.Component {
   }
 
   onUpdateAnswerText = (e, answerId) => {
-    this.props.actions.updateQuestionAnswer('answerText', e.target.value, answerId)
+    //this.props.actions.updateQuestionAnswer('answerText', e.target.value, answerId)
   }
 
   onDeleteAnswer = (e) => {
-    this.props.actions.deleteQuestionAnswer(e.target.value);
+    //this.props.actions.deleteQuestionAnswer(e.target.value);
   }
 
   onAddAnswer = () => {
-    this.props.actions.createAnswer();
+    this.props.answerActions.createAnswer(this.props.match.params.id, this.props.match.params.question_id);
   }
 
   render() {
@@ -78,32 +81,32 @@ export class EditQuestion extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {answers.map((answer, index) => (
-            <tr key={index}>
-              <td>
-                <button onClick={this.onDeleteAnswer} value={answer._id}>Delete</button>
-              </td>
-              <td>
-                <button>Move</button>
-              </td>
-              <td>
-                <input
-                  defaultValue={answer.answerText}
-                  name="answerText"
-                  onChange={(e) => this.onUpdateAnswerText(e, answer._id)}
-                />
-              </td>
-              <td>
-                <input
-                  type="radio"
-                  onChange={this.onUpdateQuestion}
-                  name="correctAnswerId"
-                  value={answer._id}
-                  checked={answer._id === question.correctAnswerId}
-                />
-              </td>
-            </tr>
-          ))}
+          {/*{answers && answers.map((answer, index) => (*/}
+            {/*<tr key={index}>*/}
+              {/*<td>*/}
+                {/*<button onClick={this.onDeleteAnswer} value={answer._id}>Delete</button>*/}
+              {/*</td>*/}
+              {/*<td>*/}
+                {/*<button>Move</button>*/}
+              {/*</td>*/}
+              {/*<td>*/}
+                {/*<input*/}
+                  {/*defaultValue={answer.answerText}*/}
+                  {/*name="answerText"*/}
+                  {/*onChange={(e) => this.onUpdateAnswerText(e, answer._id)}*/}
+                {/*/>*/}
+              {/*</td>*/}
+              {/*<td>*/}
+                {/*<input*/}
+                  {/*type="radio"*/}
+                  {/*onChange={this.onUpdateQuestion}*/}
+                  {/*name="correctAnswerId"*/}
+                  {/*value={answer._id}*/}
+                  {/*checked={answer._id === question.correctAnswerId}*/}
+                {/*/>*/}
+              {/*</td>*/}
+            {/*</tr>*/}
+          {/*))}*/}
           </tbody>
         </table>
             <button onClick={this.onAddAnswer}>Add answer</button>
@@ -115,13 +118,14 @@ export class EditQuestion extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    question: SELECTORS.getQuestion(state),
-    answers: SELECTORS.getAnswers(state)
+    question: QUESTION_SELECTORS.getQuestion(state),
+    answers: ANSWER_SELECTORS.getAnswers(state)
   }
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(QuestionActions, dispatch)
+  actions: bindActionCreators(QuestionActions, dispatch),
+  answerActions: bindActionCreators(AnswerActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditQuestion);
