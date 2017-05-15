@@ -5,11 +5,14 @@ const initialState = {
 };
 
 function app(state = initialState, action) {
+    
   switch (action.type) {
 
-  case actionTypes.setQuizzes:
-    return state
-
+  case actionTypes.setStatus:
+      return {
+        ...state,
+        status: action.status
+      };
 
   default:
     return state

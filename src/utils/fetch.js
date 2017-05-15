@@ -1,4 +1,6 @@
-const fetch = (url, options = {}) => new Promise((resolve, reject) => {
+import * as actions from 'actions/application';
+
+const fetch = (url, options = {}, dispatch) => new Promise((resolve, reject) => {
   options.headers = options.headers || {};
   options.method = options.method || 'GET';
 
@@ -9,7 +11,7 @@ const fetch = (url, options = {}) => new Promise((resolve, reject) => {
 
   window.fetch(url, options)
     .then(response => {
-      return responseHandler(response);
+      return responseHandler(response, dispatch);
     })
     .then(response => {
       return resolve(response);
@@ -17,12 +19,18 @@ const fetch = (url, options = {}) => new Promise((resolve, reject) => {
     .catch(e => reject(e));
 });
 
-const responseHandler = (response) => {
+const responseHandler = (response, dispatch) => {
     if(response.status === 401) {
       return {
         status: response.status,
         statusText: response.statusText
       };
+  } if(response.status === 404) {
+      dispatch(actions.setStatus(response.status, response.statusText))
+    //   return {
+    //     status: response.status,
+    //     statusText: response.statusText
+    //   };
     } else {
         return response.json();
     }

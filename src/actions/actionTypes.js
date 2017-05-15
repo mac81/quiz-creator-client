@@ -11,7 +11,8 @@ const actionTypes = {
   setQuiz: 'SET_QUIZ',
   setUser: 'SET_USER',
   unSetUser: 'UNSET_USER',
-  setAnswers: 'SET_ANSWERS'
+  setAnswers: 'SET_ANSWERS',
+  setStatus: 'SET_STATUS'
 }
 
 export default actionTypes;

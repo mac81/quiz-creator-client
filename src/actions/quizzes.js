@@ -19,7 +19,7 @@ export const loadQuizzes = () => {
 
 export const loadQuiz = (quizId) => {
   return (dispatch, getState) => {
-    fetch(`/api/quiz/${quizId}`)
+    fetch(`/api/quiz/${quizId}`, {}, dispatch)
       .then(function (data) {
         dispatch(setQuiz(data));
         //dispatch(loadQuestions(data._id));
