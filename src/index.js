@@ -29,6 +29,12 @@ store.dispatch(Authenticate());
 
 import './app.scss';
 
+const NoMatch = ({ location }) => (
+  <div>
+    <h3>No match for <code>{location.pathname}</code></h3>
+  </div>
+)
+
 class App extends React.Component {
   render() {
     return (
@@ -43,6 +49,8 @@ class App extends React.Component {
                 <Route exact path="/signup" component={SignUp}/>
 
                 <ApplicationWrapper/>
+
+                <Route component={NoMatch}/>
 
               </Switch>
             </div>

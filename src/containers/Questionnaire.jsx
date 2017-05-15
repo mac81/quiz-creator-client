@@ -17,7 +17,9 @@ import Deployment from '../containers/Quiz/Deployment';
 
 export class Questionnaire extends React.Component {
 
-  componentDidMount() {
+  constructor(...args) {
+    super(...args);
+
     this.props.quizActions.loadQuiz(this.props.match.params.id);
   }
 

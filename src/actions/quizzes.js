@@ -8,11 +8,13 @@ export const loadQuizzes = () => {
   return (dispatch, getState) => {
     fetch('/api/quiz')
       .then(response => {
-          if(response.status === 401) {
-            dispatch(push('/signin/'));
-          } else {
-            dispatch(setQuizzes(response.payload));
-          }
+          // if(response.status === 401) {
+          //   dispatch(push('/signin/'));
+          // } else {
+          //   dispatch(setQuizzes(response.payload));
+          // }
+      }).catch(err => {
+        console.log('err:', err);
       });
   }
 };

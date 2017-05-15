@@ -8,10 +8,8 @@ const AuthRoute = ({ component: Component, user, ...rest }) => (
     user.isLoggedIn ? (
       <Component {...props}/>
     ) : (
-      <Redirect to={{
-        pathname: '/signin',
-        state: {from: props.location}
-      }}/>
+      <div>Not authorized</div>
+
     )
   )}/>
 );
@@ -23,3 +21,8 @@ const mapStateToProps = (state, props) => {
 };
 
 export default connect(mapStateToProps)(AuthRoute);
+
+{/*<Redirect to={{*/}
+{/*pathname: '/signin',*/}
+{/*state: {from: props.location}*/}
+{/*}}/>*/}

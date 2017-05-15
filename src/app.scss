@@ -13,6 +13,29 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+table {
+  width: 100%;
+  table-layout: fixed;
+  background-color: #fff;
+  border-collapse: collapse;
+}
+
+table thead tr {
+  background-color: #f7f9fa;
+}
+
+th {
+  padding: 10px 16px;
+  color: #8091a5;
+  vertical-align: middle;
+  text-align: left;
+}
+
+td {
+  border-bottom: 1px solid #e5ebed;
+  padding: 16px;
+}
+
 a {
   text-decoration: none;
 }

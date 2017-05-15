@@ -44,10 +44,6 @@ if (isDeveloping) {
     response.sendFile(__dirname + '/index.html')
   });
 
-  // app.use(function(req, res, next) {
-  //   res.status(404).sendFile(__dirname + '/index.html')
-  // });
-
 } else {
 
   app.use(express.static(__dirname + '/dist'));

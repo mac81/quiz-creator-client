@@ -4,7 +4,7 @@ import { SELECTORS } from 'reducers/user';
 import { Switch, Route } from 'react-router-dom';
 
 import AuthRoute from 'containers/Auth/AuthRoute';
-import QuizList from 'containers/QuizList';
+import QuizList from 'containers/Quiz/QuizList/QuizList';
 import NewQuiz from 'containers/Quiz/NewQuiz';
 import Questionnaire from 'containers/Questionnaire';
 
@@ -17,11 +17,11 @@ class ApplicationWrapper extends React.Component {
 
     const {user} = this.props;
 
-    if(!user.isLoggedIn) {
-      return (
-        <div>Loading app</div>
-      )
-    }
+    // if(!user.isLoggedIn) {
+    //   return (
+    //     <div>Not authorized</div>
+    //   )
+    // }
 
     return (
         <div>
