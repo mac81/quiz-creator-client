@@ -15,7 +15,7 @@ const fetch = (url, options = {}) => new Promise((resolve, reject) => {
       return handleJSONResponse(response);
     })
     .catch(error => {
-      console.log('fetch err', error);
+      console.error(error);
     });
 });
 
@@ -44,23 +44,5 @@ function handleJSONResponse (response) {
       }
     })
 }
-
-const responseHandler = (response, reject) => {
-  if (response.status === 401) {
-    console.log('OK');
-    reject({
-      status: response.status,
-      statusText: response.statusText
-    });
-  }
-  if (response.status === 404) {
-    return reject({
-      status: response.status,
-      statusText: response.statusText
-    });
-  } else {
-    return response.json();
-  }
-};
 
 export default fetch;
