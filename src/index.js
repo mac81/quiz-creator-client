@@ -25,8 +25,6 @@ import ApplicationWrapper from 'containers/ApplicationWrapper';
 
 const root = document.getElementById('app');
 
-store.dispatch(Authenticate());
-
 import './app.scss';
 
 const NoMatch = ({ location }) => (

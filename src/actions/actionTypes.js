@@ -9,6 +9,8 @@ const actionTypes = {
   questionAnswerDeleted: 'QUESTION_ANSWER_DELETED',
   setQuizzes: 'SET_QUIZZES',
   setQuiz: 'SET_QUIZ',
+  isAuthenticating: 'IS_AUTHENTICATING',
+  authorizationFailed: 'AUTHORIZATION_FAILED',
   setUser: 'SET_USER',
   unSetUser: 'UNSET_USER',
   setAnswers: 'SET_ANSWERS',

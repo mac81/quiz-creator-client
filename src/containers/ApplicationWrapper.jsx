@@ -19,7 +19,7 @@ class ApplicationWrapper extends React.Component {
 
     // if(!user.isLoggedIn) {
     //   return (
-    //     <div>Not authorized</div>
+    //     <div>Spinner... Try to authenticate</div>
     //   )
     // }
 

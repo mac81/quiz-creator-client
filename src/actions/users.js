@@ -42,20 +42,21 @@ function signOut() {
   }
 }
 
-export const Authenticate = () => {
+export const authenticate = () => {
   return (dispatch, getState) => {
+
+    dispatch({
+      type: actionTypes.isAuthenticating
+    });
 
     const userId = window.sessionStorage.getItem('userId');
     const token = window.sessionStorage.getItem('token');
 
     if(userId && token) {
-      fetch(`/api/users/${userId}`)
+      fetch(`/api/users/${userId}`, {}, dispatch)
         .then(response => {
-          if(response.status === 401) {
-            console.log('Fetch user failed');
-          } else {
-            dispatch(setUser(response));
-          }
+          console.log(response);
+          dispatch(setUser(response));
         });
     } else {
       console.log('Auth failed, redirect to signin');
@@ -75,3 +76,4 @@ function setUser(payload) {
     payload: payload.user
   }
 }
+
