@@ -17,12 +17,6 @@ class ApplicationWrapper extends React.Component {
 
     const {user} = this.props;
 
-    // if(!user.isLoggedIn) {
-    //   return (
-    //     <div>Spinner... Try to authenticate</div>
-    //   )
-    // }
-
     return (
         <div>
           <Header/>
@@ -43,5 +37,3 @@ const mapStateToProps = (state, props) => {
 
 
 export default connect(mapStateToProps)(ApplicationWrapper);
-
-

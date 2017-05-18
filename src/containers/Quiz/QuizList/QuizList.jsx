@@ -24,6 +24,10 @@ export class QuizList extends React.Component {
     this.props.actions.loadQuizzes();
   }
 
+  onDeleteQuiz = (e) => {
+      this.props.actions.deleteQuiz(e.target.getAttribute('id'));
+  }
+
   render() {
     const { quizzes, user } = this.props;
 
@@ -46,13 +50,13 @@ export class QuizList extends React.Component {
                 <Link to={`${item._id}`}>{item.name}</Link>
               </td>
               <td>
-                {`${item.creator.profile.firstname} ${item.creator.profile.lastname}`}
+                {`${item.creator.profile.firstName} ${item.creator.profile.lastName}`}
               </td>
               <td>
                 {getDate(item.createdAt)}
               </td>
               <td>
-                <button id={item._id} onClick={this.onDelete}>Delete</button>
+                <button id={item._id} onClick={this.onDeleteQuiz}>Delete</button>
               </td>
             </tr>
           ))}

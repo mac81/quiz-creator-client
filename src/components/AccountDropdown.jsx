@@ -1,8 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as UserActions from 'actions/users';
 import { SELECTORS } from 'reducers/user';
 
 class AccountDropdown extends React.Component {
+
+  onSignOut = () => {
+      this.props.actions.signOut();
+  }
 
   render() {
 
@@ -16,10 +22,11 @@ class AccountDropdown extends React.Component {
 
     return (
       <div>
-        {user && user.isLoggedIn ? (
-          <div>{user.email} {user.firstName} {user.lastName}</div>
-        ) : (
-          <div>Logged out</div>
+        {user && user.isAuthenticated && (
+          <div>
+            <div>{user.email} {user.firstName} {user.lastName}</div>
+            <button onClick={this.onSignOut}>Sign out</button>
+          </div>
         )}
       </div>
     );
@@ -32,4 +39,8 @@ const mapStateToProps = (state, props) => {
   }
 };
 
-export default connect(mapStateToProps)(AccountDropdown);
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(UserActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountDropdown);

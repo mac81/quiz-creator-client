@@ -5,6 +5,7 @@ import * as QuestionActions from 'actions/questions';
 import * as AnswerActions from 'actions/answers';
 import { SELECTORS as QUESTION_SELECTORS } from 'reducers/question';
 import { SELECTORS as ANSWER_SELECTORS } from 'reducers/answers';
+import DebounceInput from 'react-debounce-input';
 
 import {TextField, Paper} from 'material-ui';
 
@@ -27,7 +28,8 @@ export class EditQuestion extends React.Component {
   }
 
   onUpdateQuestion = (e) => {
-    this.props.actions.updateQuestion(e.target.name, e.target.value)
+
+    this.props.actions.updateQuestion(e.target.name, e.target.value);
   }
 
   onDeleteQuestion = () => {
@@ -62,13 +64,14 @@ export class EditQuestion extends React.Component {
             <DeleteIcon onClick={this.onDeleteQuestion} color="#fff">Delete</DeleteIcon>
           </div>
           <div className="cq-panel-body">
-          <TextField
-            onChange={this.onUpdateQuestion}
-            value={question.questionText}
-            name="questionText"
-            floatingLabelText="Question"
-            fullWidth={true}
-          />
+            <DebounceInput
+                minLength={2}
+                debounceTimeout={300}
+                value={question.questionText}
+                name="questionText"
+                onChange={this.onUpdateQuestion}
+            />
+
         {/*<input defaultValue={question.questionText} name="questionText" onChange={this.onUpdateQuestion}/>*/}
 
         <table>

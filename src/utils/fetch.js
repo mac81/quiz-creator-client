@@ -9,12 +9,12 @@ const fetch = (url, options = {}, dispatch) => new Promise((resolve, reject) => 
     'Authorization': window.sessionStorage.getItem('token')
   });
 
-  return window.fetch(url, options)
+  window.fetch(url, options)
     .then(response => {
       return handleResponse(response);
     })
     .then(response => {
-      return handleJSONResponse(response);
+      resolve(response);
     })
     .catch(error => {
       if(error.status === 401) {
@@ -26,37 +26,14 @@ const fetch = (url, options = {}, dispatch) => new Promise((resolve, reject) => 
 });
 
 const handleResponse = (response) => {
-  // let contentType = response.headers.get('content-type')
-  // if (contentType.includes('application/json')) {
-  //   return handleJSONResponse(response)
-  // } else if (contentType.includes('text/html')) {
-  //   return handleTextResponse(response)
-  // } else {
-  //   // Other response types as necessary. I haven't found a need for them yet though.
-  //   throw new Error(`Sorry, content-type ${contentType} not supported`)
-  // }
   if(response.status === 401) {
     return Promise.reject({
       status: response.status,
       statusText: response.statusText
     });
   } else {
-    return handleJSONResponse(response);
+    return response.json();
   }
 };
-
-function handleJSONResponse (response) {
-  return response.json()
-    .then(json => {
-      if (response.ok) {
-        return json
-      } else {
-        return Promise.reject(Object.assign({}, json, {
-          status: response.status,
-          statusText: response.statusText
-        }))
-      }
-    })
-}
 
 export default fetch;

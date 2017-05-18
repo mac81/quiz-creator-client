@@ -12,7 +12,7 @@ export const signin = (email, password) => {
       })
     }).then(function (response) {
       dispatch(setUser(response));
-      //dispatch(push('/quizzes'));
+      dispatch(push('/quizzes'));
     });
   }
 };
@@ -33,7 +33,7 @@ export const signup = (email, password, firstname, lastname) => {
   }
 };
 
-function signOut() {
+export function signOut() {
   return (dispatch, getState) => {
     window.sessionStorage.clear();
     dispatch({
@@ -55,11 +55,10 @@ export const authenticate = () => {
     if(userId && token) {
       fetch(`/api/users/${userId}`, {}, dispatch)
         .then(response => {
-          console.log(response);
           dispatch(setUser(response));
         });
     } else {
-      console.log('Auth failed, redirect to signin');
+      dispatch(push('/signin'));
     }
   }
 };
@@ -76,4 +75,3 @@ function setUser(payload) {
     payload: payload.user
   }
 }
-

@@ -14,6 +14,12 @@ function app(state = initialState, action) {
       isLoading: false
     };
 
+    case actionTypes.quizDeleted:
+      return {
+        ...state,
+        quizzes: state.quizzes.filter(quiz => quiz._id !== action.quizId)
+      };
+
   // case actionTypes.setQuiz:
   //   console.log(state)
   //   return {

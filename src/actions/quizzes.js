@@ -8,11 +8,7 @@ export const loadQuizzes = () => {
   return (dispatch, getState) => {
     fetch('/api/quiz')
       .then(response => {
-          // if(response.status === 401) {
-          //   dispatch(push('/signin/'));
-          // } else {
-          //   dispatch(setQuizzes(response.payload));
-          // }
+        dispatch(setQuizzes(response.payload));
       }).catch(err => {
         console.log('err:', err);
       });
@@ -43,6 +39,17 @@ export const createQuiz = (name) => {
   }
 };
 
+export const deleteQuiz = (quizId) => {
+  return (dispatch, getState) => {
+    fetch(`/api/quiz/${quizId}`, {
+      method: 'delete'
+  }).then(function (response) {
+      dispatch(quizDeleted(quizId));
+      //dispatch(push(`/${quizId}`));
+    });
+  }
+};
+
 function setQuizzes(payload) {
   return {
     type: actionTypes.setQuizzes,
@@ -54,5 +61,12 @@ function setQuiz(payload) {
   return {
     type: actionTypes.setQuiz,
     payload
+  }
+}
+
+function quizDeleted(quizId) {
+  return {
+    type: actionTypes.quizDeleted,
+    quizId
   }
 }
