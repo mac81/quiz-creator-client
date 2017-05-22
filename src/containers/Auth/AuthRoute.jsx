@@ -5,12 +5,11 @@ import { SELECTORS } from 'reducers/user';
 import {bindActionCreators} from 'redux'
 import * as UserActions from 'actions/users';
 
-const AuthRoute = ({ component: Component, user, actions, isAuthenticating, ...rest }) => {
+const AuthRoute = ({ component: Component, user, actions, isAuthenticating }) => {
 
   if(!user.isAuthenticated && !user.isAuthenticating && !user.authorizationFailed) {
     actions.authenticate();
   }
-
 
   if(isAuthenticating) {
     return (
@@ -18,15 +17,17 @@ const AuthRoute = ({ component: Component, user, actions, isAuthenticating, ...r
     )
   }
 
-  return (
-    <Route {...rest} render={props => (
-      user.isAuthenticated ? (
-        <Component {...props}/>
-      ) : (
-        <div>Not authorized</div>
+  if(user.isAuthenticated) {
+      return (
+          <Route path="/:id" component={Component}/>
       )
-    )}/>
-  );
+  } else if(user.authorizationFailed) {
+      return(
+        <Redirect to="/signin" />
+      )
+  } else {
+      return <div>Something happened</div>
+  }
 }
 
 const mapStateToProps = (state, props) => {
@@ -41,4 +42,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthRoute);
-

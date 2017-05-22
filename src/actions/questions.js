@@ -8,7 +8,7 @@ export const loadQuestions = (quizId) => {
 
     //const quizId = getState().quiz._id;
 
-    fetch(`/api/quiz/${quizId}/questions`)
+    fetch(`/api/quiz/${quizId}/questions`, {}, dispatch)
       .then(function (data) {
         dispatch(setQuestions(data));
       });
@@ -20,7 +20,7 @@ export const loadQuestion = (quizId, questionId) => {
     //dispatch(fetchQuestions());
     //const quizId = getState().quizzes.quiz._id;
 
-    fetch(`/api/quiz/${quizId}/questions/${questionId}`)
+    fetch(`/api/quiz/${quizId}/questions/${questionId}`, {}, dispatch)
       .then(function (data) {
         dispatch(setQuestion(data));
       });
@@ -146,5 +146,3 @@ function questionUpdated(payload) {
     payload
   }
 }
-
-

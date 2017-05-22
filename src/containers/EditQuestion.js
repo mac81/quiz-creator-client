@@ -84,32 +84,32 @@ export class EditQuestion extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {/*{answers && answers.map((answer, index) => (*/}
-            {/*<tr key={index}>*/}
-              {/*<td>*/}
-                {/*<button onClick={this.onDeleteAnswer} value={answer._id}>Delete</button>*/}
-              {/*</td>*/}
-              {/*<td>*/}
-                {/*<button>Move</button>*/}
-              {/*</td>*/}
-              {/*<td>*/}
-                {/*<input*/}
-                  {/*defaultValue={answer.answerText}*/}
-                  {/*name="answerText"*/}
-                  {/*onChange={(e) => this.onUpdateAnswerText(e, answer._id)}*/}
-                {/*/>*/}
-              {/*</td>*/}
-              {/*<td>*/}
-                {/*<input*/}
-                  {/*type="radio"*/}
-                  {/*onChange={this.onUpdateQuestion}*/}
-                  {/*name="correctAnswerId"*/}
-                  {/*value={answer._id}*/}
-                  {/*checked={answer._id === question.correctAnswerId}*/}
-                {/*/>*/}
-              {/*</td>*/}
-            {/*</tr>*/}
-          {/*))}*/}
+          {answers && answers.map((answer, index) => (
+            <tr key={index}>
+              <td>
+                <button onClick={this.onDeleteAnswer} value={answer._id}>Delete</button>
+              </td>
+              <td>
+                <button>Move</button>
+              </td>
+              <td>
+                <input
+                  defaultValue={answer.answerText}
+                  name="answerText"
+                  onChange={(e) => this.onUpdateAnswerText(e, answer._id)}
+                />
+              </td>
+              <td>
+                <input
+                  type="radio"
+                  onChange={this.onUpdateQuestion}
+                  name="correctAnswerId"
+                  value={answer._id}
+                  checked={answer._id === question.correctAnswerId}
+                />
+              </td>
+            </tr>
+          ))}
           </tbody>
         </table>
             <button onClick={this.onAddAnswer}>Add answer</button>

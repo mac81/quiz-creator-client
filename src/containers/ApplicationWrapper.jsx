@@ -23,7 +23,7 @@ class ApplicationWrapper extends React.Component {
           <Switch>
             <AuthRoute exact path="/quizzes" component={QuizList}/>
             <AuthRoute exact path="/new-quiz" component={NewQuiz}/>
-            <Route path="/:id" component={Questionnaire}/>
+            <AuthRoute path="/:id" component={Questionnaire}/>
           </Switch>
         </div>
     );

@@ -6,7 +6,7 @@ import {loadQuestions} from 'actions/questions';
 
 export const loadQuizzes = () => {
   return (dispatch, getState) => {
-    fetch('/api/quiz')
+    fetch('/api/quiz', {}, dispatch)
       .then(response => {
         dispatch(setQuizzes(response.payload));
       }).catch(err => {

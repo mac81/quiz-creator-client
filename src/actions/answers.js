@@ -6,7 +6,7 @@ export const loadAnswers = (quizId, questionId) => {
 
     //const questionId = getState().questions.question._id;
 
-    fetch(`/api/quiz/${quizId}/questions/${questionId}/answers`)
+    fetch(`/api/quiz/${quizId}/questions/${questionId}/answers`, {}, dispatch)
       .then(function (response) {
         dispatch(setAnswers(response));
       });

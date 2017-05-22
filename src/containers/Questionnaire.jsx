@@ -19,7 +19,7 @@ export class Questionnaire extends React.Component {
 
   constructor(...args) {
     super(...args);
-
+    
     this.props.quizActions.loadQuiz(this.props.match.params.id);
   }
 
