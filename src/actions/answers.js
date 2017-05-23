@@ -13,6 +13,22 @@ export const loadAnswers = (quizId, questionId) => {
   }
 };
 
+export const createAnswer = (quizId, questionId) => {
+  return (dispatch, getState) => {
+
+    //const questionId = getState().questions.question._id;
+
+    fetch(`/api/quiz/${quizId}/questions/${questionId}/answers`, {
+      method: 'post',
+      body: JSON.stringify({
+        answerText: ''
+      })
+    }).then(function (response) {
+      dispatch(answerCreated(response));
+    });
+  }
+};
+
 // export const updateQuestionAnswer = (key, value, answerId) => {
 //   return (dispatch, getState) => {
 //     const questionId = getState().questions.question._id;
@@ -35,22 +51,16 @@ export const loadAnswers = (quizId, questionId) => {
 //   }
 // };
 //
-// export const deleteQuestionAnswer = (answerId) => {
-//   return (dispatch, getState) => {
-//
-//     const questionId = getState().questions.question._id;
-//
-//     fetch(`/api/questions/${questionId}/answers/${answerId}`, {
-//       method: 'delete'
-//     }).then(function (response) {
-//       return response.json();
-//     }).then(function () {
-//       dispatch(questionAnswerDeleted(answerId));
-//     }).catch(function (err) {
-//       console.log(err);
-//     });
-//   }
-// };
+export const deleteAnswer = (quizId, questionId, answerId) => {
+  return (dispatch, getState) => {
+
+    fetch(`/api/quiz/${quizId}/questions/${questionId}/answers/${answerId}`, {
+      method: 'delete'
+    }).then(function () {
+      dispatch(answerDeleted(answerId));
+    });
+  }
+};
 
 // function questionAnswerDeleted(answer_id) {
 //   return {
@@ -58,6 +68,20 @@ export const loadAnswers = (quizId, questionId) => {
 //     answer_id
 //   }
 // }
+
+function answerCreated(payload) {
+  return {
+    type: actionTypes.answerCreated,
+    payload
+  }
+}
+
+function answerDeleted(payload) {
+  return {
+    type: actionTypes.answerDeleted,
+    payload
+  }
+}
 
 function setAnswers(answers) {
   return {

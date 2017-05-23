@@ -13,6 +13,18 @@ function answers(state = initialState, action) {
       answers: action.answers
     };
 
+  case actionTypes.answerCreated:
+    return {
+      ...state,
+      answers: [...state.answers, action.payload]
+    };
+
+  case actionTypes.answerDeleted:
+    return {
+      ...state,
+      answers: state.answers.filter(answer => answer._id !== action.payload)
+    };
+
 
   default:
     return state

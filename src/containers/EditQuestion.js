@@ -41,7 +41,7 @@ export class EditQuestion extends React.Component {
   }
 
   onDeleteAnswer = (e) => {
-    //this.props.actions.deleteQuestionAnswer(e.target.value);
+    this.props.answerActions.deleteAnswer(this.props.match.params.id, this.props.match.params.question_id, e.target.value);
   }
 
   onAddAnswer = () => {

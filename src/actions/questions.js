@@ -47,25 +47,6 @@ export const createQuestion = (questionText = '', insertPosition, position) => {
   }
 };
 
-
-
-// export const createAnswer = (quizId, questionId, value) => {
-//   return (dispatch, getState) => {
-//
-//     //const questionId = getState().questions.question._id;
-//
-//     fetch(`/api/quiz/${quizId}/questions/${questionId}/answers`, {
-//       method: 'post',
-//       body: JSON.stringify({
-//         answerText: ''
-//       })
-//     }).then(function (response) {
-//       console.log(response);
-//       //dispatch(questionCreated(response));
-//     });
-//   }
-// };
-
 export const deleteQuestion = (questionId) => {
   return (dispatch, getState) => {
 
