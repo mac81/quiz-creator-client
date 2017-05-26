@@ -1,5 +1,6 @@
 import actionTypes from 'actions/actionTypes';
 import fetch from 'utils/fetch';
+import {getRouteIds} from 'utils/utils';
 
 export const loadAnswers = (quizId, questionId) => {
   return (dispatch, getState) => {
@@ -29,30 +30,26 @@ export const createAnswer = (quizId, questionId) => {
   }
 };
 
-// export const updateQuestionAnswer = (key, value, answerId) => {
-//   return (dispatch, getState) => {
-//     const questionId = getState().questions.question._id;
-//
-//     fetch(`/api/questions/${questionId}/answers/${answerId}`, {
-//       method: 'put',
-//       headers: new Headers({
-//         'Content-Type': 'application/json'
-//       }),
-//       body: JSON.stringify({
-//         [key]: value
-//       })
-//     }).then(function (response) {
-//       return response.json();
-//     }).then(function (response) {
-//       dispatch(questionUpdated(response));
-//     }).catch(function (err) {
-//       console.log(err);
-//     });
-//   }
-// };
-//
-export const deleteAnswer = (quizId, questionId, answerId) => {
+export const updateAnswer = (match, key, value, answerId) => {
   return (dispatch, getState) => {
+
+    const {quizId, questionId} = getRouteIds(match);
+
+    fetch(`/api/quiz/${quizId}/questions/${questionId}/answers/${answerId}`, {
+      method: 'put',
+      body: JSON.stringify({
+        [key]: value
+      })
+    }, dispatch).then(function (payload) {
+      dispatch(answerUpdated(payload));
+    });
+  }
+};
+
+export const deleteAnswer = (match, answerId) => {
+  return (dispatch, getState) => {
+
+    const {quizId, questionId} = getRouteIds(match);
 
     fetch(`/api/quiz/${quizId}/questions/${questionId}/answers/${answerId}`, {
       method: 'delete'
@@ -72,6 +69,13 @@ export const deleteAnswer = (quizId, questionId, answerId) => {
 function answerCreated(payload) {
   return {
     type: actionTypes.answerCreated,
+    payload
+  }
+}
+
+function answerUpdated(payload) {
+  return {
+    type: actionTypes.answerUpdated,
     payload
   }
 }

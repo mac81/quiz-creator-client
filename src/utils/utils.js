@@ -12,3 +12,11 @@
 // 		if (callNow) func.apply(context, args);
 // 	};
 // };
+
+export function getRouteIds(match) {
+  return {
+    quizId: match.params.id,
+    questionId: match.params.question_id,
+    answerId: match.params.answer_id
+  }
+}

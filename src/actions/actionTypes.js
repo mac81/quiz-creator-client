@@ -8,6 +8,7 @@ const actionTypes = {
   questionDeleted: 'QUESTION_DELETED',
   answerDeleted: 'ANSWER_DELETED',
   answerCreated: 'ANSWER_CREATED',
+  answerUpdated: 'ANSWER_UPDATED',
   setQuizzes: 'SET_QUIZZES',
   setQuiz: 'SET_QUIZ',
   quizDeleted: 'QUIZ_DELETED',

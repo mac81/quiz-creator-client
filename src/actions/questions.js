@@ -79,8 +79,6 @@ export const updateQuestion = (key, value) => {
   }
 };
 
-
-
 function fetchQuestions() {
   return {
     type: actionTypes.fetchQuestions

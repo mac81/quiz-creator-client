@@ -12,9 +12,12 @@ import {TextField, Paper} from 'material-ui';
 import LabelIcon from 'material-ui/svg-icons/action/label-outline';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 
+import AnswerList from 'components/AnswerList';
+
 export class EditQuestion extends React.Component {
 
   constructor(props) {
+
     super(props);
 
     this.props.actions.loadQuestion(props.match.params.id, props.match.params.question_id);
@@ -28,20 +31,11 @@ export class EditQuestion extends React.Component {
   }
 
   onUpdateQuestion = (e) => {
-
     this.props.actions.updateQuestion(e.target.name, e.target.value);
   }
 
   onDeleteQuestion = () => {
     this.props.actions.deleteQuestion(this.props.question._id);
-  }
-
-  onUpdateAnswerText = (e, answerId) => {
-    //this.props.actions.updateQuestionAnswer('answerText', e.target.value, answerId)
-  }
-
-  onDeleteAnswer = (e) => {
-    this.props.answerActions.deleteAnswer(this.props.match.params.id, this.props.match.params.question_id, e.target.value);
   }
 
   onAddAnswer = () => {
@@ -72,46 +66,8 @@ export class EditQuestion extends React.Component {
                 onChange={this.onUpdateQuestion}
             />
 
-        {/*<input defaultValue={question.questionText} name="questionText" onChange={this.onUpdateQuestion}/>*/}
+            <AnswerList match={this.props.match}/>
 
-        <table>
-          <thead>
-          <tr>
-            <th></th>
-            <th></th>
-            <th>Answer</th>
-            <th>Correct answer</th>
-          </tr>
-          </thead>
-          <tbody>
-          {answers && answers.map((answer, index) => (
-            <tr key={index}>
-              <td>
-                <button onClick={this.onDeleteAnswer} value={answer._id}>Delete</button>
-              </td>
-              <td>
-                <button>Move</button>
-              </td>
-              <td>
-                <input
-                  defaultValue={answer.answerText}
-                  name="answerText"
-                  onChange={(e) => this.onUpdateAnswerText(e, answer._id)}
-                />
-              </td>
-              <td>
-                <input
-                  type="radio"
-                  onChange={this.onUpdateQuestion}
-                  name="correctAnswerId"
-                  value={answer._id}
-                  checked={answer._id === question.correctAnswerId}
-                />
-              </td>
-            </tr>
-          ))}
-          </tbody>
-        </table>
             <button onClick={this.onAddAnswer}>Add answer</button>
           </div>
         </Paper>
@@ -121,8 +77,7 @@ export class EditQuestion extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    question: QUESTION_SELECTORS.getQuestion(state),
-    answers: ANSWER_SELECTORS.getAnswers(state)
+    question: QUESTION_SELECTORS.getQuestion(state)
   }
 };
 

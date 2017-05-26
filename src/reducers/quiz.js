@@ -23,5 +23,6 @@ export default app;
 
 export const SELECTORS = {
   getQuiz: (state) => state.quiz,
-  getQuizQuestions: (state) => state.quiz.questions
+  getQuizQuestions: (state) => state.quiz.questions,
+  getQuizIsLive: (state) => state.quiz.live
 };

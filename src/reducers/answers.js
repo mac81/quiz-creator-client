@@ -19,6 +19,18 @@ function answers(state = initialState, action) {
       answers: [...state.answers, action.payload]
     };
 
+  case actionTypes.answerUpdated:
+    return {
+      ...state,
+      answers: state.answers.map(answer => {
+        if(answer._id === action.payload._id) {
+          return action.payload;
+        } else {
+          return answer;
+        }
+      })
+    };
+
   case actionTypes.answerDeleted:
     return {
       ...state,
